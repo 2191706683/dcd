@@ -27,6 +27,7 @@ const props = defineProps({
     }
 })
 
+//使用tabcar数据仓库 
 const tabcarStore = useTabCarStore()
 
 // 利用参数转化为需要取得的相应的数据

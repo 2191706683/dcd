@@ -4,7 +4,6 @@ import App from './App.vue'
 import 'vant/lib/index.css'
 import 'lib-flexible/flexible'
 import '@/mock/index'
-import { nanoid } from 'nanoid'
 
 import router from '@/router/index.js'
 import { createPinia } from 'pinia'
@@ -21,7 +20,9 @@ import {
     Icon,
     IndexBar, 
     IndexAnchor,
-    Cell
+    Cell,
+    ActionBar,
+    ActionBarButton
 } from 'vant';
 
 const app = createApp(App)
@@ -39,6 +40,8 @@ app
     .use(IndexBar)
     .use(IndexAnchor)
     .use(Cell)
+    .use(ActionBar)
+    .use(ActionBarButton)
     .use(createPinia())
     .use(router)
     .mount('#app')
