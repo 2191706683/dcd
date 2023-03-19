@@ -1,7 +1,7 @@
 <template>
     <div class="detail_header">
             <div class="detail_header_title">
-                <span class="header_title-left">雪铁龙C6</span>
+                <span class="header_title-left">{{detailHeader.name}}</span>
                 <span class="header_score">
                     <span>
                         <img
@@ -22,7 +22,7 @@
                 <span class="header_hotsale_right">中型轿车热门 NO.10</span>
             </div>
             <img class="header_show-img"
-                    src="https://p6-dcd.byteimg.com/img/tos-cn-i-0000c0030/05807adce3e142fdb7497a1d805e1fd3~tplv-resize:1200:0.webp"
+                    :src="detailHeader.img"
                     alt="">
             <div class="detail_header_show">
                 <span class="header_show_left">
@@ -60,16 +60,21 @@
 </template>
 
 <script setup>
-
+defineProps({
+    detailHeader: {
+        type: Object,
+        value: {}
+    }
+})
 </script>
 
 <style lang="stylus" scoped>
 @import '../../assets/css/index.styl'
 .detail_header
     padding 21px 18px 0 18px
-    background-color #d4def3
+    // background-color #d4def3
     height 365px
-    // background-image linear-gradient(#d4def3, #fff) 
+    background-image linear-gradient(#d4def3, #fff) 
     .detail_header_title
         padding-bottom 10px
     .detail_header_title > span:first-child

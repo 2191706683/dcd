@@ -22,7 +22,11 @@ import {
     IndexAnchor,
     Cell,
     ActionBar,
-    ActionBarButton
+    ActionBarButton,
+    Form, 
+    Field, 
+    CellGroup,
+    Checkbox
 } from 'vant';
 
 const app = createApp(App)
@@ -42,6 +46,10 @@ app
     .use(Cell)
     .use(ActionBar)
     .use(ActionBarButton)
+    .use(Form)
+    .use(Field)
+    .use(CellGroup)
+    .use(Checkbox)
     .use(createPinia())
     .use(router)
     .mount('#app')

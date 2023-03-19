@@ -5,7 +5,7 @@ export default {
         "caricon": [
             {"id": nanoid(), "title": "大众", "icon": "https://p1-dcd.byteimg.com/img/motor-img/343173efb2ab28cda1b0e5a5b49dab8e~tplv-resize:100:0.png"},
             {"id": nanoid(), "title": "丰田", "icon": "https://p1-dcd.byteimg.com/img/motor-img/c8eb9d15ac7e99904711b5ffe5538777~tplv-resize:100:0.png"},
-            {"id": nanoid(), "title": "奔驰", "icon": "https://p3.dcarimg.com/avatar/100x100/1dd50000190229abeec8.png"},
+            {"id": nanoid(), "title": "奔驰", "icon": "https://p3.dcarimg.com/img/mosaic-legacy/1dd50000190229abeec8~40x0.webp"},
             {"id": nanoid(), "title": "本田", "icon": "https://p1-dcd.byteimg.com/img/tos-cn-i-dcdx/ce848b3a359d48ee97a3ffbc79c99aa8~tplv-resize:0:0.png"},
             {"id": nanoid(), "title": "奥迪", "icon": "https://p3.dcarimg.com/avatar/100x100/1dd5000048d6334c26b4.png"},
         ],

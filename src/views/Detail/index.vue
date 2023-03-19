@@ -1,15 +1,15 @@
 <template>
     <div class="detail">
-        <Navbar title="雪铁龙" />
-        <DetailHeader />
+        <Navbar title="雪铁龙C6" />
+        <DetailHeader :detailHeader="detailHeader" />
         <div class="detail_tabbar">
             <div class="cartype">车型</div> 
             <div class="saling">在售</div>
         </div>
-        <DetailContent />
+        <DetailContent :detailData="detailData" />
         <van-action-bar class="action_bar">
-            <van-action-bar-button class="action_bar-button" color="#1f2129" text="加入购物车" />
-            <van-action-bar-button class="action_bar-button" color="#ffcc32" text="立即购买" />
+            <van-action-bar-button @click="" class="action_bar-button" color="#1f2129" text="加入购物车" />
+            <van-action-bar-button @click="goToPage('buy')" class="action_bar-button" color="#ffcc32" text="立即购买" />
         </van-action-bar>
     </div>
 </template>
@@ -18,6 +18,27 @@
 import Navbar from '@/components/Navbar.vue'
 import DetailHeader from './DetailHeader.vue';
 import DetailContent from './DetailContent.vue'
+
+import { useDetailStore } from '@/store/detail';
+import { computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const detailStore = useDetailStore()
+const router = useRouter()
+
+const detailData = computed(() => detailStore.state.detailData)
+const detailHeader = computed(() => detailStore.state.detailHeader)
+
+onMounted(() => {
+    detailStore.loadDetailContent()
+})
+
+const goToPage = (path) => {
+    router.push({name:`${path}`})
+}
+
+
+
 </script>
 
 <style lang="stylus" scoped>

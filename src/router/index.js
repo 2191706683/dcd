@@ -9,22 +9,27 @@ const routes = [
     {
         path: '/cart',
         name: 'cart',
-        component: () => import('@/views/Cart/index.vue')
+        component: () => import('@/views/Cart/Index.vue')
     },
     {
         path: '/user',
         name: 'user',
-        component: () => import('@/views/User/index.vue')
+        component: () => import('@/views/User/Index.vue')
     },
     {
         path: '/search',
         name: 'search',
-        component: () => import('@/views/Search/index.vue')
+        component: () => import('@/views/Search/Index.vue')
     },
     {
         path: '/detail',
         name: 'detail',
-        component: () => import('@/views/Detail/index.vue')
+        component: () => import('@/views/Detail/Index.vue')
+    },
+    {
+        path: '/buy',
+        name: 'buy',
+        component: () => import('@/views/Buy/Index.vue')
     }
 ]
 
