@@ -3,21 +3,43 @@ import { reactive } from "vue";
 
 export const useCartStore = defineStore('cart', () => {
     const state = reactive({
-        carList: [],
+        carList: JSON.parse(localStorage.getItem("carList")) || [],
     })
 
+    // 增加购物车中商品的数量
     const addCar = (item) => {
-        let arrName = []
-        state.carList.forEach(info => arrName.push(info.name))
-        if (arrName.indexOf(item.name === -1)) {
+        let arrTitle = []
+        state.carList.forEach(info => arrTitle.push(info.title))
+        if (arrTitle.indexOf(item.title) === -1) {
             item.num++
-            state.carList.unshift(item)
+            state.carList.push(item)
         } else {
-            // carList[arrName.indexOf(item.name)].
+            state.carList[arrTitle.indexOf(item.title)].num++
         }
+        // console.log(state.carList)
+        localStorage.setItem('carList', JSON.stringify(state.carList))
     }
+
+    // 减少购物车的数量
+    const decreaseCar = (item) => {
+        let arrTitle = []
+        state.carList.forEach(info => arrTitle.push(info.title))
+        state.carList[arrTitle.indexOf(item.title)].num--
+        localStorage.setItem('carList', JSON.stringify(state.carList))
+    }
+
+    const comSum = () => {
+        let sum = 0
+        state.carList.forEach(item => {
+            sum += item.num * item.price
+        })
+        return sum.toFixed(2)
+    }
+
     return {
         state,
-        addCar
+        addCar,
+        decreaseCar,
+        comSum
     }
 })

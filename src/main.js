@@ -26,7 +26,9 @@ import {
     Form, 
     Field, 
     CellGroup,
-    Checkbox
+    Checkbox,
+    Card,
+    SubmitBar
 } from 'vant';
 
 const app = createApp(App)
@@ -50,6 +52,8 @@ app
     .use(Field)
     .use(CellGroup)
     .use(Checkbox)
+    .use(Card)
+    .use(SubmitBar)
     .use(createPinia())
     .use(router)
     .mount('#app')

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar class="navbar" :title="props.title">
+        <van-nav-bar class="navbar" :title="props.title" fixed>
             <template #left>
                 <van-icon @click="onClickLeft" name="arrow-left" color="#000" size="24" />
                 <van-icon @click="goToPage('home')" class="icon" name="wap-home-o" color="#000" size="24" />
