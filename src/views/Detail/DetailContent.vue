@@ -1,41 +1,49 @@
 <template>
-    <div class="detail_content">
-        <div class="detail_content_cell" v-for="item in detailData" :key="item.id">
-            <div class="detail_content_description">
-                <span>{{ item.description }}</span>
-            </div>
-            <div class="detail_content_cart">
-                <div class="detail_cart_header">
-                    <div class="detail_cart_title">{{ item.title }}</div>
-                    <div class="detail_cart_price">
-                        <span>{{ item.price }}万</span>
-                        <span>指导价{{ item.guide_price }}万</span>
-                    </div>
-                </div>
-                <div class="detail_cart-button">
-                    <span @click="addCar(item)">加入购物车</span>
-                    <span>立即购买</span>
-                </div>
-            </div>
+  <div class="detail_content">
+    <div class="detail_content_cell" v-for="item in detailData" :key="item.id">
+      <div class="detail_content_description">
+        <span>{{ item.description }}</span>
+      </div>
+      <div class="detail_content_cart">
+        <div class="detail_cart_header">
+          <div class="detail_cart_title">{{ item.title }}</div>
+          <div class="detail_cart_price">
+            <span>{{ item.price }}万</span>
+            <span>指导价{{ item.guide_price }}万</span>
+          </div>
         </div>
+        <div class="detail_cart-button">
+          <span @click="addCar(item)">加入购物车</span>
+          <span @click="goToPage('buy')">立即购买</span>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup>
-import { useCartStore } from '@/store/cart';
+import { showSuccessToast } from "vant";
+import { useCartStore } from "@/store/cart";
+import { useRouter } from "vue-router";
 
-const cartStore = useCartStore()
+
+const router = useRouter();
+const cartStore = useCartStore();
 const props = defineProps({
-    detailData: {
-        type: Array,
-        value: []
-    }
-})
+  detailData: {
+    type: Array,
+    value: [],
+  },
+});
 
 const addCar = (item) => {
-    cartStore.addCar(item)
-}
+  showSuccessToast("添加成功");
+  cartStore.addCar(item);
+};
 
+const goToPage = (path) => {
+  router.push({ name: `${path}` });
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -74,4 +82,6 @@ const addCar = (item) => {
                 line-height 38px
                 background-color #fff9e6
                 border 1px solid #ffe28c
+            .detail_cart-button span:active
+                background #ffffda
 </style>

@@ -15,7 +15,7 @@
         />
       </div>
     </div>
-    <van-submit-bar class="submit_bar" :price="`${price}`*100" button-text="提交订单">
+    <van-submit-bar class="submit_bar" :price="`${price}` * 100" button-text="提交订单">
       <van-checkbox v-model="checked">全选</van-checkbox>
     </van-submit-bar>
     <Tabbar />
@@ -41,8 +41,7 @@ const price = computed(() => {
     sum += item.num * item.price;
   });
   return sum.toFixed(2);
-})
-console.log(price)
+});
 </script>
 
 <style lang="stylus" scoped>

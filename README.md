@@ -50,4 +50,5 @@ npm i vue-router pinia @types/node stylus
     Mock.mock(\/\newcar\, 'get', () => {return code: 0, data: newcar})
   - main.js 导入index
   - 请求数据时记得使用async异步
-  
+
+- 购买页面的地区选择需要npm i @vant/area-data
