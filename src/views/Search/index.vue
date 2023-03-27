@@ -3,6 +3,7 @@
         <Navbar />
         <form action="/">
         <van-search
+            class="search"
             v-model="value"
             show-action
             autofocus
@@ -12,7 +13,6 @@
             @cancel="onCancel"
         />
         </form>
-
     </div>
 </template>
 
@@ -31,5 +31,6 @@ const onCancel = () => history.back()
 </script>
 
 <style lang="stylus" scoped>
-
+.search
+    margin-top 50px
 </style>

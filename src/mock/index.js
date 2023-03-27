@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 import tabcar from "./data/tabcar"
 import detail from './data/detail'
+import user from './data/user'
 
 // 设置请求数据时间
 Mock.setup({
@@ -21,3 +22,10 @@ Mock.mock(/\/detail/, 'get', () => {
         data: detail
     }
 })
+
+// Mock.mock(/\/user/, 'get' ,() => {
+//     return {
+//         code: 0,
+//         data: user
+//     }
+// })

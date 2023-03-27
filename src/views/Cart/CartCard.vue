@@ -67,5 +67,5 @@ const decrease = (cardData) => {
       height 100%
       margin-left 2px
 /deep/ .van-card__price
-    color #ffcc32
+    color red
 </style>
