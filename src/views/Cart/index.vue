@@ -15,8 +15,12 @@
         />
       </div>
     </div>
-    <van-submit-bar class="submit_bar" :price="`${sumPrice}`* 100" button-text="提交订单">
-      <van-checkbox v-model="checked">全选</van-checkbox>
+    <van-submit-bar
+      class="submit_bar"
+      :price="`${sumPrice}` * 100"
+      button-text="提交订单"
+    >
+      <van-checkbox @clickChild="clickEven" @click="checkAll(checked)" v-model="checked">全选</van-checkbox>
     </van-submit-bar>
     <Tabbar />
   </div>
@@ -25,22 +29,33 @@
 <script setup>
 import Tabbar from "@/components/Tabbar.vue";
 import CartCard from "./CartCard.vue";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useCartStore } from "../../store/cart";
 
 const cartStore = useCartStore();
 
 const len = ref(cartStore.state.carList.length);
-let checked = ref(false);
-// let carList = JSON.parse(localStorage.getItem("carList")) || [];
-let carList = computed(() => cartStore.state.carList)
-console.log(carList, 'cart index.vue')
-const sumPrice = computed(() => {
-  let sum = 0;
+let carList = computed(() => cartStore.state.carList);
+let sumPrice = computed(() => cartStore.sumPrice);
+
+const checkAll = (bool) => {
+  cartStore.checkAll(bool);
+};
+
+let checked = ref(null)
+
+const clickEven=(val)=>{
+  // console.log(val);
+  if (!val) {
+    checked.value = false
+  }
+}
+
+onMounted(() => {
+  checked.value = true;
   carList.value.forEach((item) => {
-    sum += item.num * item.price;
+    if (!item.isChecked) checked.value = false;
   });
-  return sum.toFixed(2);
 });
 </script>
 

@@ -1,10 +1,10 @@
 <template>
   <div class="cartcard">
-    <van-checkbox v-model="checked" />
+    <van-checkbox @click="clickChild" v-model="cardData.isChecked" />
     <van-swipe-cell>
       <van-card
         class="cartcard_card"
-        :num="num"
+        :num="cardData.num"
         :price="`${cardData.price}万`"
         :desc="cardData.title"
         :title="cardData.name"
@@ -24,7 +24,9 @@
 
 <script setup>
 import { useCartStore } from "@/store/cart.js";
-import { ref } from "vue";
+
+// 使用defineEmits创建名称，接受一个数组
+const emit = defineEmits(['clickChild'])
 
 const cartStore = useCartStore();
 
@@ -37,17 +39,16 @@ const props = defineProps({
 
 const cardData = props.cardData;
 
-let checked = ref(false);
-let num = ref(cardData.num);
+const clickChild=()=>{
+  emit('clickChild',cardData.isChecked)
+}
 
 const add = (cardData) => {
-  num.value++;
   cartStore.addCar(cardData);
 };
 
 const decrease = (cardData) => {
-  if (num.value > 1) {
-    num.value--;
+  if (cardData.num > 1) {
     cartStore.decreaseCar(cardData);
   }
 };
@@ -62,9 +63,11 @@ const decrease = (cardData) => {
         padding 4px 0px 4px 12px
         width 300px
         background-color @white
-    .delete-button 
+    .delete-button
       height 100%
       margin-left 2px
-:deep(.van-card__price) 
+:deep(.van-card__price)
     color red
+// :deep(van-submit-bar__price :after)
+//   content '万'
 </style>

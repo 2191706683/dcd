@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 
 export const useCartStore = defineStore('cart', () => {
     const state = reactive({
@@ -27,13 +27,16 @@ export const useCartStore = defineStore('cart', () => {
         localStorage.setItem('carList', JSON.stringify(state.carList))
     }
 
-    const comSum = () => {
+    let sumPrice = computed(() => {
         let sum = 0
         state.carList.forEach(item => {
-            sum += item.num * item.price
+            if (item.isChecked) {
+                sum += item.num * item.price
+            }
+            localStorage.setItem('carList', JSON.stringify(state.carList))
         })
         return sum.toFixed(2)
-    }
+    })
 
     // 在购物车的基础上所有商品加一
     const addAllCar = (cars) => {
@@ -43,11 +46,19 @@ export const useCartStore = defineStore('cart', () => {
         localStorage.setItem('carList', JSON.stringify(state.carList))
     }
 
+    const checkAll = (bool) => {
+        state.carList.forEach((item) => {
+            item.isChecked = bool
+        })
+        localStorage.setItem('carList', JSON.stringify(state.carList))
+    }
+
     return {
         state,
         addCar,
         decreaseCar,
-        comSum,
-        addAllCar
+        sumPrice,
+        addAllCar,
+        checkAll
     }
 })
