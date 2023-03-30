@@ -16,7 +16,6 @@ export const useCartStore = defineStore('cart', () => {
         } else {
             state.carList[arrTitle.indexOf(item.title)].num++
         }
-        // console.log(state.carList)
         localStorage.setItem('carList', JSON.stringify(state.carList))
     }
 
@@ -36,10 +35,19 @@ export const useCartStore = defineStore('cart', () => {
         return sum.toFixed(2)
     }
 
+    // 在购物车的基础上所有商品加一
+    const addAllCar = (cars) => {
+        cars.forEach((item) => {
+            addCar(item)
+        })
+        localStorage.setItem('carList', JSON.stringify(state.carList))
+    }
+
     return {
         state,
         addCar,
         decreaseCar,
-        comSum
+        comSum,
+        addAllCar
     }
 })

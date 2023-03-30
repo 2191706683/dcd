@@ -32,7 +32,10 @@ import {
     SwipeCell,
     Popup,
     Area,
-    Divider
+    Divider,
+    NoticeBar,
+    Skeleton,
+    PullRefresh
 } from 'vant';
 
 const app = createApp(App)
@@ -62,6 +65,9 @@ app
     .use(Popup)
     .use(Area)
     .use(Divider)
+    .use(NoticeBar)
+    .use(Skeleton)
+    .use(PullRefresh)
     .use(createPinia())
     .use(router)
     .mount('#app')

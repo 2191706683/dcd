@@ -15,7 +15,7 @@
         />
       </div>
     </div>
-    <van-submit-bar class="submit_bar" :price="`${price}` * 100" button-text="提交订单">
+    <van-submit-bar class="submit_bar" :price="`${sumPrice}`* 100" button-text="提交订单">
       <van-checkbox v-model="checked">全选</van-checkbox>
     </van-submit-bar>
     <Tabbar />
@@ -27,17 +27,17 @@ import Tabbar from "@/components/Tabbar.vue";
 import CartCard from "./CartCard.vue";
 import { ref, computed } from "vue";
 import { useCartStore } from "../../store/cart";
+
 const cartStore = useCartStore();
 
 const len = ref(cartStore.state.carList.length);
 let checked = ref(false);
-let carList = JSON.parse(localStorage.getItem("carList"));
-// let price = ref(Number(cartStore.comSum()));
-// console.log(price);
-
-const price = computed(() => {
+// let carList = JSON.parse(localStorage.getItem("carList")) || [];
+let carList = computed(() => cartStore.state.carList)
+console.log(carList, 'cart index.vue')
+const sumPrice = computed(() => {
   let sum = 0;
-  carList.forEach((item) => {
+  carList.value.forEach((item) => {
     sum += item.num * item.price;
   });
   return sum.toFixed(2);

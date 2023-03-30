@@ -8,7 +8,7 @@
         </div>
         <DetailContent :detailData="detailData" />
         <van-action-bar class="action_bar">
-            <van-action-bar-button @click="" class="action_bar-button" color="#1f2129" text="加入购物车" />
+            <van-action-bar-button @click="addAll(detailData)" class="action_bar-button" color="#1f2129" text="加入购物车" />
             <van-action-bar-button @click="goToPage('buy')" class="action_bar-button" color="#ffcc32" text="立即购买" />
         </van-action-bar>
     </div>
@@ -19,25 +19,29 @@ import Navbar from '@/components/Navbar.vue'
 import DetailHeader from './DetailHeader.vue';
 import DetailContent from './DetailContent.vue'
 
-import { useDetailStore } from '@/store/detail';
 import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useDetailStore } from '@/store/detail';
+import { useCartStore } from '@/store/cart';
 
-const detailStore = useDetailStore()
 const router = useRouter()
+const detailStore = useDetailStore()
+const cartStore = useCartStore()
 
 const detailData = computed(() => detailStore.state.detailData)
 const detailHeader = computed(() => detailStore.state.detailHeader)
-
-onMounted(() => {
-    detailStore.loadDetailContent()
-})
 
 const goToPage = (path) => {
     router.push({name:`${path}`})
 }
 
+const addAll = (cars) => {
+    cartStore.addAllCar(cars)
+}
 
+onMounted(() => {
+    detailStore.loadDetailContent()
+})
 
 </script>
 

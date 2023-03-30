@@ -9,11 +9,17 @@ const routes = [
     {
         path: '/cart',
         name: 'cart',
+        meta: {
+            requiredLogin: true
+        },
         component: () => import('@/views/Cart/Index.vue')
     },
     {
         path: '/user',
         name: 'user',
+        meta: {
+            requiredLogin: true
+        },
         component: () => import('@/views/User/Index.vue')
     },
     {
@@ -29,18 +35,36 @@ const routes = [
     {
         path: '/buy',
         name: 'buy',
+        meta: {
+            requiredLogin: true
+        },
         component: () => import('@/views/Buy/Index.vue')
     },
     {
         path: '/type',
         name: 'type',
         component: () => import('@/views/Buy/BuyType.vue')
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/Login/Index.vue')
     }
 ]
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    const { requiredLogin } = to.meta
+    const isLogin = localStorage.getItem('isLogin')
+    if (!isLogin && requiredLogin) {
+        next('login')
+    } else {
+        next()
+    }
 })
 
 export default router

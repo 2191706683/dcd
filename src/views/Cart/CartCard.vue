@@ -24,7 +24,7 @@
 
 <script setup>
 import { useCartStore } from "@/store/cart.js";
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 
 const cartStore = useCartStore();
 
@@ -35,10 +35,9 @@ const props = defineProps({
   },
 });
 
-let checked = ref(false);
-
 const cardData = props.cardData;
 
+let checked = ref(false);
 let num = ref(cardData.num);
 
 const add = (cardData) => {
@@ -66,6 +65,6 @@ const decrease = (cardData) => {
     .delete-button 
       height 100%
       margin-left 2px
-/deep/ .van-card__price
+:deep(.van-card__price) 
     color red
 </style>

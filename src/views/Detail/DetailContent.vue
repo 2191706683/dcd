@@ -26,7 +26,6 @@ import { showSuccessToast } from "vant";
 import { useCartStore } from "@/store/cart";
 import { useRouter } from "vue-router";
 
-
 const router = useRouter();
 const cartStore = useCartStore();
 const props = defineProps({

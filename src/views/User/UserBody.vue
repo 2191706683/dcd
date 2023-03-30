@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="grid-list">
-      <div class="grid-item" v-for="item in gridList" :key="index">
+      <div class="grid-item" v-for="item in gridList" :key="item.id">
         <img :src="item.icon" />
         <span>{{ item.name }}</span>
       </div>
@@ -10,40 +10,17 @@
 </template>
 
 <script setup>
-const gridList = [
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jl2BK.png",
-    name: "消息私信",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jl9fs.png",
-    name: "收藏",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jl6Za.png",
-    name: "浏览历史",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jlfxg.png",
-    name: "下载管理",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jllJB.png",
-    name: "点赞",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jl80S.png",
-    name: "钱包",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jluMN.png",
-    name: "任务",
-  },
-  {
-    icon: "https://i.imgtg.com/2023/03/28/jlI1C.png",
-    name: "全部",
-  },
-];
+import { onMounted, computed } from 'vue';
+import { useUserStore } from '@/store/user';
+
+const userStore = useUserStore()
+
+const gridList = computed(() => userStore.state.gridList)
+
+onMounted(() => {
+  userStore.loadUser()
+})
+
 </script>
 
 <style lang="stylus" scoped>

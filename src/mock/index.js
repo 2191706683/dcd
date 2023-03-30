@@ -23,9 +23,9 @@ Mock.mock(/\/detail/, 'get', () => {
     }
 })
 
-// Mock.mock(/\/user/, 'get' ,() => {
-//     return {
-//         code: 0,
-//         data: user
-//     }
-// })
+Mock.mock(/\/user/, 'get', () => {
+    return {
+        code: 0,
+        data: user
+    }
+})

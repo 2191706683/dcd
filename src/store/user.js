@@ -1,20 +1,21 @@
 import { defineStore } from "pinia";
-import { getUser } from "@/service/home";
+import { getUser } from "@/service/user";
 import { reactive } from "vue";
 
 export const useUserStore = defineStore('user', () => {
     // 初始化数据，完成响应式
     const state = reactive({
-       icon: '',
-       name: ''
+       gridList: []
     })
     
     // 获取newcar，energy数据 
     const loadUser = async () => {
         const { data } = await getUser()
-        console.log(data, '---')
+        state.gridList = data.gridList
+        // console.log(data.gridList, '---')
     }
     return {
-        state
+        state,
+        loadUser
     }
 })
