@@ -1,6 +1,6 @@
 <template>
   <div class="cartcard">
-    <van-checkbox @click="clickChild" v-model="cardData.isChecked" />
+    <van-checkbox checked-color="#ffcc32" v-model="cardData.isChecked" />
     <van-swipe-cell>
       <van-card
         class="cartcard_card"
@@ -16,7 +16,7 @@
         </template>
       </van-card>
       <template #right>
-        <van-button square text="删除" type="danger" class="delete-button" />
+        <van-button @click="deleteC(cardData)" square text="删除" type="danger" class="delete-button" />
       </template>
     </van-swipe-cell>
   </div>
@@ -24,9 +24,10 @@
 
 <script setup>
 import { useCartStore } from "@/store/cart.js";
+import { showSuccessToast } from 'vant';
 
 // 使用defineEmits创建名称，接受一个数组
-const emit = defineEmits(['clickChild'])
+// const emit = defineEmits(['clickChild'])
 
 const cartStore = useCartStore();
 
@@ -39,9 +40,9 @@ const props = defineProps({
 
 const cardData = props.cardData;
 
-const clickChild=()=>{
-  emit('clickChild',cardData.isChecked)
-}
+// const clickChild=()=>{
+//   emit('clickChild',cardData.isChecked)
+// }
 
 const add = (cardData) => {
   cartStore.addCar(cardData);
@@ -52,6 +53,11 @@ const decrease = (cardData) => {
     cartStore.decreaseCar(cardData);
   }
 };
+
+const deleteC = (cardData) => {
+  cartStore.deleteCar(cardData);
+  showSuccessToast('删除成功');
+}
 </script>
 
 <style lang="stylus" scoped>

@@ -4,7 +4,8 @@
             <img src="https://p3.dcarimg.com/img/motor-img/d6f728d6a1b5ed93ba1d8e394a860c3e~640x0.png" alt="">
             <div class="buychoose_right">
                 <span>雪铁龙C6</span>
-                <span @click="goToPage('type')">选择车型 ></span>
+                <span v-if="title">{{ title }}</span>
+                <span v-else @click="goToPage('type')">选择车型 ></span>
             </div>
         </div>
         <div class="buyprice">
@@ -22,9 +23,11 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter()
+const route = useRoute()
+const title = route.query.title
 
 const goToPage = (path) => {
     router.push({name: `${path}`})

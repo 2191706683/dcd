@@ -1,7 +1,5 @@
 <template>
-  <van-divider class="divider">
-    提交信息，立即购买
-  </van-divider>
+  <van-divider class="divider"> 提交信息，立即购买 </van-divider>
 
   <van-form class="buyForm" @submit="onSubmit">
     <van-cell-group class="cellgroup" inset>
@@ -13,6 +11,7 @@
         name="area"
         label="购车城市"
         placeholder="点击选择省市区"
+        :rules="[{ required: true, message: '请选择城市' }]"
         @click="showArea = true"
       />
       <van-popup v-model:show="showArea" position="bottom">
@@ -37,7 +36,7 @@
       />
     </van-cell-group>
     <div style="margin: 16px">
-      <van-button class="submit" block color="#ffe698" native-type="submit">
+      <van-button class="submit" block color="#ffd452" native-type="submit">
         立即购买
       </van-button>
     </div>
@@ -45,7 +44,10 @@
       <van-checkbox v-model="checked" shape="square" checked-color="#ffd452">
         同意
       </van-checkbox>
-      <a href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1">《个人信息保护声明》</a> 
+      <a
+        href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
+        >《个人信息保护声明》</a
+      >
     </div>
   </van-form>
 </template>
@@ -53,6 +55,7 @@
 <script setup>
 import { ref } from "vue";
 import { areaList } from "@vant/area-data";
+import { showSuccessToast, showLoadingToast, closeToast, showToast } from "vant";
 
 const result = ref("");
 const showArea = ref(false);
@@ -65,7 +68,30 @@ const onConfirm = ({ selectedOptions }) => {
   result.value = selectedOptions.map((item) => item.text).join("/");
 };
 
-const onSubmit = () => {};
+const onSubmit = () => {
+  if (checked.value == false) {
+    showToast('请勾选同意！')
+  } else {
+    const toast = showLoadingToast({
+      duration: 0,
+      forbidClick: true,
+      message: "付款中...",
+    });
+
+    let second = 2;
+    const timer = setInterval(() => {
+      second--;
+      if (second) {
+        toast.message = `付款中...`;
+      } else {
+        clearInterval(timer);
+        showSuccessToast("付款成功");
+        closeToast();
+        location.reload();
+      }
+    }, 1000);
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -89,5 +115,4 @@ const onSubmit = () => {};
     .checkbox a
        color #999999
        text-decoration underline
-
 </style>

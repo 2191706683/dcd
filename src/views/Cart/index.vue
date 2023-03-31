@@ -6,7 +6,8 @@
         <span>管理</span>
       </div>
       <div class="cart_sum">共{{ len }}件宝贝</div>
-      <div class="cardcontainer">
+      <div class="empty" v-if="len==0">购物车空空如也，去<router-link to="/">首页</router-link>购物吧</div>
+      <div v-else class="cardcontainer">
         <CartCard
           v-for="item in carList"
           :key="item.id"
@@ -16,11 +17,17 @@
       </div>
     </div>
     <van-submit-bar
+      @click.stop="submit"
       class="submit_bar"
       :price="`${sumPrice}` * 100"
       button-text="提交订单"
     >
-      <van-checkbox @clickChild="clickEven" @click="checkAll(checked)" v-model="checked">全选</van-checkbox>
+      <van-checkbox
+        checked-color="#ffcc32"
+        @click.stop="checkAll(checked)"
+        v-model="checked"
+        >全选</van-checkbox
+      >
     </van-submit-bar>
     <Tabbar />
   </div>
@@ -31,25 +38,57 @@ import Tabbar from "@/components/Tabbar.vue";
 import CartCard from "./CartCard.vue";
 import { ref, computed, onMounted, watch } from "vue";
 import { useCartStore } from "../../store/cart";
+import { showSuccessToast, showLoadingToast, closeToast, showToast } from "vant";
 
 const cartStore = useCartStore();
 
-const len = ref(cartStore.state.carList.length);
+let len = ref(cartStore.state.carList.length);
 let carList = computed(() => cartStore.state.carList);
 let sumPrice = computed(() => cartStore.sumPrice);
 
+let checked = ref(null);
+
+const submit = () => {
+  if (sumPrice.value == 0) {
+    showToast("请勾选商品！");
+  } else {
+    const toast = showLoadingToast({
+      duration: 0,
+      forbidClick: true,
+      message: "付款中...",
+    });
+
+    let second = 1;
+    const timer = setInterval(() => {
+      second--;
+      if (second) {
+        toast.message = `付款中...`;
+      } else {
+        clearInterval(timer);
+        showSuccessToast("付款成功");
+        for (let i= 0; i < carList.value.length; ) {
+          if (carList.value[i].isChecked) {
+            cartStore.deleteCar(carList.value[i]);
+          } else {
+            i++
+          }
+        }
+        closeToast();
+        location.reload()
+      }
+    }, 1000);
+  }
+};
 const checkAll = (bool) => {
   cartStore.checkAll(bool);
 };
 
-let checked = ref(null)
-
-const clickEven=(val)=>{
-  // console.log(val);
-  if (!val) {
-    checked.value = false
-  }
-}
+// const clickEven=(val)=>{
+//   // console.log(val);
+//   if (!val) {
+//     checked.value = false
+//   }
+// }
 
 onMounted(() => {
   checked.value = true;
@@ -77,6 +116,12 @@ onMounted(() => {
         wh(100%, 86px)
         background-color #ffcc32
         padding-bottom 90px
+        .empty
+            margin-top 250px  
+            text-align center
+            font-size 16px
+            letter-spacing 4px
+            font-weight bold
         .cardcontainer
             padding-bottom 90px
             .cart_card

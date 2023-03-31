@@ -14,7 +14,7 @@
         </div>
         <div class="detail_cart-button">
           <span @click="addCar(item)">加入购物车</span>
-          <span @click="goToPage('buy')">立即购买</span>
+          <span @click="goToPage('buy', item.title)">立即购买</span>
         </div>
       </div>
     </div>
@@ -40,8 +40,8 @@ const addCar = (item) => {
   cartStore.addCar(item);
 };
 
-const goToPage = (path) => {
-  router.push({ name: `${path}` });
+const goToPage = (path, title) => {
+  router.push({ name: `${path}`, query: { title: `${title}` }});
 };
 </script>
 

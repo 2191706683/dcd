@@ -3,7 +3,7 @@
     <Navbar title="雪铁龙C6" />
     <div class="buytype">
       <template v-for="item in detailData" :key="item.id">
-        <div class="cell">
+        <div @click="choose(item.title)" class="cell">
           <div class="cell_left">{{ item.title }}</div>
           <div class="cell_right">
             <span>{{ item.price }}万</span>
@@ -19,10 +19,16 @@
 import Navbar from "@/components/Navbar.vue";
 import { useDetailStore } from "@/store/detail.js";
 import { onMounted, computed } from "vue";
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const detailStore = useDetailStore();
 
 const detailData = computed(() => detailStore.state.detailData);
+
+const choose = (title) => {
+  router.push({ name: 'buy', query: { title: `${title}` }});
+}
 
 onMounted(() => {
   detailStore.loadDetailContent();

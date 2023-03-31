@@ -1,29 +1,7 @@
 <template>
-  <!-- <div class="header">
-    <div class="icon">
-      <van-icon size="30" name="https://i.imgtg.com/2023/03/28/jlG5I.png" />
-      <van-icon size="28" name="https://i.imgtg.com/2023/03/28/jlLf1.png" />
-    </div>
-    <div class="header_desc">
-      <img class="desc_img" src="https://i.imgtg.com/2023/03/25/jBzWp.webp" alt="" />
-      <div class="desc_msg">
-        <div class="desc_name">吃腻的奶油 ></div>
-        <div class="desc_medal">0个勋章</div>
-        <div class="desc_detail">
-          <span>动态 0</span>
-          <span>关注 0</span>
-          <span>粉丝 0</span>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <!--pages/user/childCpns/jr-user_head/jr-user_head.wxml-->
   <div class="item">
     <div class="top">
-      <img
-        src="https://i.imgtg.com/2023/03/25/jBzWp.webp"
-        alt=""
-      />
+      <img class="avator" src="https://i.imgtg.com/2023/03/25/jBzWp.webp" alt="" />
       <div class="message">
         <div class="name">吃腻的奶油</div>
         <div class="state">
@@ -32,6 +10,12 @@
           <span class="liked">0<span>获赞</span></span>
         </div>
       </div>
+      <img
+        @click="logout"
+        class="logout"
+        src="https://i.imgtg.com/2023/03/31/2ehvP.png"
+        alt=""
+      />
     </div>
     <div class="description">
       <span class="tag">+ 添加年龄、学校标签</span>
@@ -45,13 +29,29 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { showConfirmDialog } from "vant";
+
+const logout = () => {
+  showConfirmDialog({
+    message: "你真的舍得离开我吗？",
+  })
+    .then(() => {
+      // on confirm
+      localStorage.removeItem("isLogin");
+      location.reload();
+    })
+    .catch(() => {
+      // on cancel
+    });
+};
+</script>
 
 <style lang="stylus" scoped>
 @import '../../assets/css/index.styl';
 .item {
   // background-color: #fbf9e0;
-  background-image linear-gradient(#fbf9e0, #fff) 
+  background-image linear-gradient(#fbf9e0, #fff)
   padding: 15px 15px 0 15px;
   color #000;
 }
@@ -60,7 +60,7 @@
   display: flex;
   align-items: center;
 }
-.top img {
+.top .avator {
   border: 1px solid #fff;
   border-radius: 50%;
   width: 75px;
@@ -73,6 +73,12 @@
   flex-direction: column;
   justify-content: space-around;
   font-weight: 600;
+}
+.top .logout {
+  width 25px
+  height 25px
+  margin-left 70px
+  margin-bottom 26px
 }
 .follow, .fans, .liked {
   margin-right: 17px;

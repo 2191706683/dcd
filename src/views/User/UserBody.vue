@@ -1,26 +1,30 @@
 <template>
   <div class="page">
-    <div class="grid-list">
-      <div class="grid-item" v-for="item in gridList" :key="item.id">
-        <img :src="item.icon" />
-        <span>{{ item.name }}</span>
+    <van-skeleton style="height: 150px;" :row="5" :loading="loading">
+      <div class="grid-list">
+        <div class="grid-item" v-for="item in gridList" :key="item.id">
+          <img :src="item.icon" />
+          <span>{{ item.name }}</span>
+        </div>
       </div>
-    </div>
+    </van-skeleton>
   </div>
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue';
-import { useUserStore } from '@/store/user';
+import { ref,onMounted, computed } from "vue";
+import { useUserStore } from "@/store/user";
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 
-const gridList = computed(() => userStore.state.gridList)
+const gridList = computed(() => userStore.state.gridList);
 
-onMounted(() => {
-  userStore.loadUser()
-})
+const loading = ref(true);
 
+onMounted(async () => {
+  await userStore.loadUser();
+  loading.value = false;
+});
 </script>
 
 <style lang="stylus" scoped>
