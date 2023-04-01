@@ -36,12 +36,17 @@ const props = defineProps({
 });
 
 const addCar = (item) => {
-  showSuccessToast("添加成功");
-  cartStore.addCar(item);
+  const isLogin = localStorage.getItem("isLogin");
+  if (!isLogin) {
+    router.push({name: 'login'})
+  } else {
+    showSuccessToast("添加成功");
+    cartStore.addCar(item);
+  }
 };
 
 const goToPage = (path, title) => {
-  router.push({ name: `${path}`, query: { title: `${title}` }});
+  router.push({ name: `${path}`, query: { title: `${title}` } });
 };
 </script>
 

@@ -25,6 +25,7 @@
 <script setup>
 import { useCartStore } from "@/store/cart.js";
 import { showSuccessToast } from 'vant';
+import { ref } from 'vue'
 
 // 使用defineEmits创建名称，接受一个数组
 // const emit = defineEmits(['clickChild'])
@@ -55,8 +56,13 @@ const decrease = (cardData) => {
 };
 
 const deleteC = (cardData) => {
+  let len = ref(cartStore.state.carList.length);
+  console.log(len.value)
   cartStore.deleteCar(cardData);
   showSuccessToast('删除成功');
+  if (len.value == 1) {
+    location.reload()
+  }
 }
 </script>
 

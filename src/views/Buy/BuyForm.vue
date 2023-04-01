@@ -70,7 +70,7 @@ const onConfirm = ({ selectedOptions }) => {
 
 const onSubmit = () => {
   if (checked.value == false) {
-    showToast('请勾选同意！')
+    showToast('请勾选协议！')
   } else {
     const toast = showLoadingToast({
       duration: 0,

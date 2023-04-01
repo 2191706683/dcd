@@ -1,48 +1,64 @@
 <template>
-    <div class="detail">
-        <Navbar title="雪铁龙C6" />
-        <DetailHeader :detailHeader="detailHeader" />
-        <div class="detail_tabbar">
-            <div class="cartype">车型</div> 
-            <div class="saling">在售</div>
-        </div>
-        <DetailContent :detailData="detailData" />
-        <van-action-bar class="action_bar">
-            <van-action-bar-button @click="addAll(detailData)" class="action_bar-button" color="#1f2129" text="加入购物车" />
-            <van-action-bar-button @click="goToPage('buy')" class="action_bar-button" color="#ffcc32" text="立即购买" />
-        </van-action-bar>
+  <div class="detail">
+    <Navbar title="雪铁龙C6" />
+    <DetailHeader :detailHeader="detailHeader" />
+    <div class="detail_tabbar">
+      <div class="cartype">车型</div>
+      <div class="saling">在售</div>
     </div>
+    <DetailContent :detailData="detailData" />
+    <van-action-bar class="action_bar">
+      <van-action-bar-button
+        @click="addAll(detailData)"
+        class="action_bar-button"
+        color="#1f2129"
+        text="加入购物车"
+      />
+      <van-action-bar-button
+        @click="goToPage('buy')"
+        class="action_bar-button"
+        color="#ffcc32"
+        text="立即购买"
+      />
+    </van-action-bar>
+  </div>
 </template>
 
 <script setup>
-import Navbar from '@/components/Navbar.vue'
-import DetailHeader from './DetailHeader.vue';
-import DetailContent from './DetailContent.vue'
+import Navbar from "@/components/Navbar.vue";
+import DetailHeader from "./DetailHeader.vue";
+import DetailContent from "./DetailContent.vue";
 
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useDetailStore } from '@/store/detail';
-import { useCartStore } from '@/store/cart';
+import { computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useDetailStore } from "@/store/detail";
+import { useCartStore } from "@/store/cart";
+import { showSuccessToast } from "vant";
 
-const router = useRouter()
-const detailStore = useDetailStore()
-const cartStore = useCartStore()
+const router = useRouter();
+const detailStore = useDetailStore();
+const cartStore = useCartStore();
 
-const detailData = computed(() => detailStore.state.detailData)
-const detailHeader = computed(() => detailStore.state.detailHeader)
+const detailData = computed(() => detailStore.state.detailData);
+const detailHeader = computed(() => detailStore.state.detailHeader);
 
 const goToPage = (path) => {
-    router.push({name:`${path}`})
-}
+  router.push({ name: `${path}` });
+};
 
 const addAll = (cars) => {
-    cartStore.addAllCar(cars)
-}
+  const isLogin = localStorage.getItem("isLogin");
+  if (!isLogin) {
+    router.push({ name: "login" });
+  } else {
+    showSuccessToast("添加成功");
+    cartStore.addAllCar(cars);
+  }
+};
 
 onMounted(() => {
-    detailStore.loadDetailContent()
-})
-
+  detailStore.loadDetailContent();
+});
 </script>
 
 <style lang="stylus" scoped>
@@ -58,7 +74,7 @@ onMounted(() => {
         background-color #fff
         .cartype
             padding-left 18px
-        .saling 
+        .saling
             wh(30px, 10px)
             font-size 12px
             margin-top 18px

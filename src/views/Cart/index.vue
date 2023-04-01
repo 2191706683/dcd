@@ -17,12 +17,13 @@
       </div>
     </div>
     <van-submit-bar
-      @click.stop="submit"
+      @submit="onSubmit"
       class="submit_bar"
       :price="`${sumPrice}` * 100"
       button-text="提交订单"
     >
       <van-checkbox
+        v-if="len"
         checked-color="#ffcc32"
         @click.stop="checkAll(checked)"
         v-model="checked"
@@ -48,7 +49,7 @@ let sumPrice = computed(() => cartStore.sumPrice);
 
 let checked = ref(null);
 
-const submit = () => {
+const onSubmit = () => {
   if (sumPrice.value == 0) {
     showToast("请勾选商品！");
   } else {

@@ -7,94 +7,179 @@
       background="#eeeeee"
       color="#000"
       mode="closeable"
-      >您需要登录才能继续访问</van-notice-bar
-    >
+      >您需要<router-link to="/login">登录</router-link>才能继续访问或回<router-link to="/">首页</router-link>
+    </van-notice-bar>
     <div class="login_icon">
       <img
         src="https://p3.dcarimg.com/obj/eden-cn/vlseh7ubqnuhs/motor/favicon/favicon-96x96.png"
         alt=""
       />
     </div>
-    <van-form @submit="onSubmit">
-      <van-cell-group inset>
-        <van-field
-          size="large"
-          v-model="username"
-          name="username"
-          label="用户名"
-          placeholder="手机号/邮箱/用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        />
-        <van-field
-          size="large"
-          v-model="password"
-          type="password"
-          name="password"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
-      </van-cell-group>
-      <div style="margin: 16px; margin-top: 20px">
-        <van-button round block type="primary" color="#ffcc32" native-type="submit">
-          登录
-        </van-button>
-      </div>
-      <div class="checkbox">
-        <van-checkbox v-model="checked" checked-color="#ffd452" />
-        <span class="deal"
-          >已阅读并同意以下协议
-          <a
-            href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
-          >
-            平台服务协议 </a
-          >、
-          <a
-            href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
-          >
-            隐私权政策 </a
-          >、
-          <a
-            href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
-          >
-            法律声明 </a
-          >、
-          <a
-            href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
-          >
-            支付宝及客户端服务协议 </a
-          >,未注册手机号将自动为您创建账号。
-        </span>
-      </div>
-    </van-form>
+    <div class="login-body login" v-if="state.type === 'login'">
+      <van-form @submit="onSubmit">
+        <van-cell-group inset>
+          <van-field
+            size="large"
+            v-model="state.username1"
+            name="username"
+            label="用户名"
+            placeholder="手机号/邮箱/用户名"
+            :rules="[{ required: true, message: '请填写用户名' }]"
+          />
+          <van-field
+            size="large"
+            v-model="state.password1"
+            type="password"
+            name="password"
+            label="密码"
+            placeholder="密码"
+            :rules="[{ required: true, message: '请填写密码' }]"
+          />
+        </van-cell-group>
+        <div style="margin: 16px; margin-top: 20px">
+          <div style="padding: 0 0 12px 16px" @click="toggle('register')">立即注册</div>
+          <van-button round block type="primary" color="#ffcc32" native-type="submit">
+            登录
+          </van-button>
+        </div>
+        <div class="checkbox">
+          <van-checkbox v-model="checked" checked-color="#ffd452" />
+          <span class="deal"
+            >已阅读并同意以下协议
+            <a
+              href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
+            >
+              平台服务协议 </a
+            >、
+            <a
+              href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
+            >
+              隐私权政策 </a
+            >、
+            <a
+              href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
+            >
+              法律声明 </a
+            >、
+            <a
+              href="https://m.dcdapp.com/motor/inapp/dealer_m/personnel-info-statement.html?series_id=1375&dealer_id=1"
+            >
+              支付宝及客户端服务协议 </a
+            >,未注册手机号将自动为您创建账号。
+          </span>
+        </div>
+      </van-form>
+    </div>
+    <div class="login-body registry" v-else>
+      <van-form @submit="onSubmit">
+        <van-cell-group inset>
+          <van-field
+            size="large"
+            v-model="state.username1"
+            name="username1"
+            label="用户名"
+            placeholder="11位手机号"
+            :rules="[{ required: true, message: '请填写用户名' }]"
+          />
+          <van-field
+            size="large"
+            v-model="state.password1"
+            type="password"
+            name="password1"
+            label="密码"
+            placeholder="密码"
+            :rules="[{ required: true, message: '请填写密码' }]"
+          />
+        </van-cell-group>
+        <div style="margin: 16px; margin-top: 20px">
+          <div style="padding: 0 0 12px 16px" @click="toggle('login')">登录</div>
+          <van-button round block type="primary" color="#ffcc32" native-type="submit">
+            立即注册
+          </van-button>
+        </div>
+      </van-form>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router"
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { login, register } from '@/service/user.js'
+import md5 from 'js-md5'
+import {
+  showSuccessToast,
+  showLoadingToast,
+  showFailToast,
+  closeToast,
+  showToast,
+} from "vant";
 
-const router = useRouter()
+const router = useRouter();
 
-const username = ref(null);
-const password = ref(null);
 const checked = ref(false);
 
-const goToPage = (path) => {
-  router.push({ name: `${path}` });
-};
+const state = reactive({
+  type: "login",
+  username1: "",
+  password1: "",
+});
 
-const onSubmit = (values) => {
-  // console.log(values)
-  const { username, password } = values
-  if (username === "admin" && password === "123") {
-    localStorage.setItem('isLogin', true)
-    goToPage('home')
-  }
-}
+const toggle = (type) => {
+  state.type = type;
+};
 
 const backPage = () => {
   history.back();
+};
+
+const onSubmit = async (values) => {
+  if (state.type === "login") {
+    if (!checked.value) {
+      showToast("请勾选协议！");
+    } else {
+      const data = await login({
+        "loginName": values.username,
+        "passwordMd5": md5(values.password)
+      })
+      let second = 1;
+      const toast = showLoadingToast({
+        duration: 0,
+        forbidClick: true,
+        message: "登录中...",
+      });
+
+      const timer = setInterval(() => {
+        second--;
+        if (second) {
+          toast.message = `登录中...`;
+        } else {
+          clearInterval(timer);
+          if (data.resultCode == 200) {
+            localStorage.setItem("isLogin", true);
+            localStorage.setItem("token", data.data)
+            showSuccessToast("登录成功");
+            window.location.href = '/'
+          } else {
+            showFailToast(`${data.message}`);
+          }
+          closeToast();
+        }
+      }, 1000);
+    }
+  } else {
+    const data = await register({
+      "loginName": values.username1,
+      "password": values.password1
+    })
+    if (data.resultCode !== 200) {
+      showFailToast(`${data.message}`)
+    } else {
+      showSuccessToast("注册成功");
+      router.push({name: 'login'})
+    }
+    
+  }
 };
 </script>
 
