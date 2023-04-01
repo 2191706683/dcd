@@ -1,16 +1,16 @@
 <template>
   <div>
-      <div class="tabcar">
-        <van-skeleton title  :row="4" :loading="loading">
-            <CarIcon :caricon="caricon" />
-        </van-skeleton>
-        <van-skeleton style="margin-top: 40px;" title :row="4" :loading="loading">
-            <CarTag :cartag="cartag" />
-        </van-skeleton>
-        <van-skeleton style="margin-top: 40px;" title :row="4" :loading="loading">
-            <CarHot :carhot="carhot" />
-        </van-skeleton>
-      </div>
+    <div class="tabcar">
+      <van-skeleton title :row="4" :loading="loading">
+        <CarIcon :caricon="caricon" />
+      </van-skeleton>
+      <van-skeleton style="margin-top: 40px" title :row="4" :loading="loading">
+        <CarTag :cartag="cartag" />
+      </van-skeleton>
+      <van-skeleton style="margin-top: 40px" title :row="4" :loading="loading">
+        <CarHot :carhot="carhot" />
+      </van-skeleton>
+    </div>
     <CarIndex :carindex="carindex" />
   </div>
 </template>
@@ -48,9 +48,10 @@ const cartag = computed(() => tabcarStore.state[tabname_cartag]);
 const carhot = computed(() => tabcarStore.state[tabname_carhot]);
 const carindex = computed(() => tabcarStore.state.carindex);
 
+// 定义骨架屏是否显示
 const loading = ref(true);
 
-// 获取newcar和energy的数据
+// 获取newcar和energy的数据，并使用骨架屏及加载弹窗
 onMounted(async () => {
   showLoadingToast({
     message: "加载中...",
@@ -58,7 +59,7 @@ onMounted(async () => {
   });
   await tabcarStore.loadTabCar();
   loading.value = false;
-  closeToast()
+  closeToast();
 });
 </script>
 

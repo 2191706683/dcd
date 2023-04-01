@@ -19,7 +19,7 @@ defineProps({
     margin-top 13px
     height 80px
     fj()
-    align-items center
+    fa(center) 
     flex-wrap wrap
     .car_tagitem
         wh(23%, 32px)

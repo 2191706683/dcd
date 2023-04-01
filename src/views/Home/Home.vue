@@ -21,12 +21,17 @@ import DcdHeader from "@/components/DcdHeader.vue";
 import TabCar from "./TabCar.vue";
 import Accurate from "./Accurate.vue";
 
+// 引入vue中的ref定义变量
 import { ref } from "vue";
 
+// 定义tab标签组件的下标
 let active = ref(null);
+// 定义骨架屏的显示
 let isLoading = ref(true);
 
+// 下拉刷新
 const onRefresh = () => {
+  // 一秒之后刷新状态结束
   setTimeout(() => {
     isLoading.value = false;
   }, 1000);

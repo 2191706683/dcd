@@ -28,24 +28,20 @@ onMounted(async () => {
 </script>
 
 <style lang="stylus" scoped>
-/* pages/user/childCpns/jr-user_head/jr-user_head.wxss *//* pages/user/childCpns/jr-user_body/jr-user_body.wxss */
-.grid-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-.grid-item {
-  display: flex;
-  width: 25%;
-  flex-direction: column;
-  height: 75px;
-  justify-content: center;
-  align-items: center;
-}
-.grid-item img {
-  width: 22px;
-  height: 22px;
-}
-.grid-item span {
-  margin-top: 6px;
-}
+@import '../../assets/css/index.styl';
+.grid-list 
+    display flex
+    flex-wrap wrap
+
+.grid-item 
+    fj(center)
+    fa()
+    wh(25%, 75px)
+    flex-direction column
+
+.grid-item img 
+    wh(22px, 22px)
+
+.grid-item span 
+    margin-top 6px
 </style>

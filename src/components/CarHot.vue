@@ -1,23 +1,27 @@
 <template>
-    <div class="car_hot">
-        <div class="car_hotcar_title">热门车系</div>
-        <div class="car_hotcar">
-            <router-link to="/detail" class="car_hotcar_item" v-for="item in carhot" :key="item.id">
-                <img class="car_hotcar_img"
-                    :src="item.img" alt="">
-                <span>{{item.title}}</span>
-            </router-link>
-        </div>
+  <div class="car_hot">
+    <div class="car_hotcar_title">热门车系</div>
+    <div class="car_hotcar">
+      <router-link
+        to="/detail"
+        class="car_hotcar_item"
+        v-for="item in carhot"
+        :key="item.id"
+      >
+        <img class="car_hotcar_img" :src="item.img" alt="" />
+        <span>{{ item.title }}</span>
+      </router-link>
     </div>
+  </div>
 </template>
 
 <script setup>
 defineProps({
-    carhot: {
-        type: Array,
-        value: []
-    }
-})
+  carhot: {
+    type: Array,
+    value: [],
+  },
+});
 </script>
 
 <style lang="stylus" scoped>
@@ -34,9 +38,8 @@ defineProps({
         padding-top 11px
         .car_hotcar_item
             fa()
-            height 73px
+            wh(33%, 73px)
             flex-direction column
-            width 33%
             box-sizing border-box
             color #000
             .car_hotcar_img

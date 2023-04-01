@@ -49,81 +49,70 @@ const logout = () => {
 
 <style lang="stylus" scoped>
 @import '../../assets/css/index.styl';
-.item {
-  // background-color: #fbf9e0;
-  background-image linear-gradient(#fbf9e0, #fff)
-  padding: 15px 15px 0 15px;
-  color #000;
-}
+.item 
+    background-image linear-gradient(#fbf9e0, #fff)
+    padding 15px 15px 0 15px
+    color #000
 
-.top {
-  display: flex;
-  align-items: center;
-}
-.top .avator {
-  border: 1px solid #fff;
-  border-radius: 50%;
-  width: 75px;
-  height: 75px;
-}
-.top .message {
-  display: flex;
-  margin-left: 13px;
-  height: 58px;
-  flex-direction: column;
-  justify-content: space-around;
-  font-weight: 600;
-}
-.top .logout {
-  width 25px
-  height 25px
-  margin-left 70px
-  margin-bottom 26px
-}
-.follow, .fans, .liked {
-  margin-right: 17px;
-}
-.follow span, .fans span, .liked span {
-  margin-left: 3px;
-  font-size: 5pt;
-  font-weight: normal;
-}
-.description {
-  display: flex;
-  height: 100px;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 5px 0 10px;
-}
-.description span {
-  background-color: #fbf9e0;
-}
-.description .tag {
-  width: 130px;
-  padding: 1px 5px;
-  font-size: 4pt;
-  border-radius: 3px;
-}
-.description .introduction {
-  font-size: 5pt;
-}
-.description .btns {
-  display: flex;
-}
-.btns span {
-  display: flex;
-  padding: 0 20px;
-  margin-right: 6px;
-  span-align: center;
-  align-items: center;
-  font-size: 5pt;
-  border-radius: 3px;
-}
-.btns img {
-  background-color: #fbf9e0;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
-  border-radius: 3px;
-}
+.top 
+    fa()
+.top .avator 
+    border 1px solid #fff
+    border-radius: 50%
+    wh(75px, 75px)
+
+.top .message 
+    fj(space-around)
+    margin-left 13px
+    height 58px
+    flex-direction column
+    font-weight 600
+
+.top .logout 
+    wh(25px, 25px)
+    margin-left 70px
+    margin-bottom 26px
+
+.follow, .fans, .liked 
+    margin-right 17px
+
+.follow span, .fans span, .liked span 
+    margin-left 3px
+    font-size 5pt
+    font-weight normal
+
+.description 
+    fj(space-around)
+    height 100px
+    flex-direction column
+    padding 5px 0 10px
+
+.description span 
+    background-color #fbf9e0
+
+.description .tag 
+    width 130px
+    padding 1px 5px
+    font-size 4pt
+    border-radius 3px
+
+.description .introduction 
+    font-size 5pt
+.description .btns 
+    display flex
+
+.btns span 
+    fa()
+    padding 0 20px
+    margin-right 6px
+    span-align center
+    font-size 5pt
+    border-radius 3px
+
+.btns img 
+    background-color #fbf9e0
+    wh(25px, 25px)
+    padding: 3px
+    border-radius: 3px
+
 </style>

@@ -19,7 +19,7 @@
     <van-submit-bar
       @submit="onSubmit"
       class="submit_bar"
-      :price="`${sumPrice}` * 100"
+      :price="`${sumPrice}` * 1000000"
       button-text="提交订单"
     >
       <van-checkbox
@@ -102,7 +102,6 @@ onMounted(() => {
 <style lang="stylus" scoped>
 @import '../../assets/css/index.styl';
 .cart
-    // padding-bottom 40%
     .cart_title
         fj()
         font-size 18px

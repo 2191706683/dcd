@@ -70,7 +70,6 @@ const deleteC = (cardData) => {
 @import '../../assets/css/index.styl';
 .cartcard
     fj()
-    // display flex
     .cartcard_card
         padding 4px 0px 4px 12px
         width 300px

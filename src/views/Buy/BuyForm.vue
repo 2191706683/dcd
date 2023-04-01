@@ -1,6 +1,5 @@
 <template>
   <van-divider class="divider"> 提交信息，立即购买 </van-divider>
-
   <van-form class="buyForm" @submit="onSubmit">
     <van-cell-group class="cellgroup" inset>
       <van-field
@@ -19,7 +18,7 @@
       </van-popup>
       <van-field
         size="large"
-        v-model="username"
+        v-model="state.username"
         name="您的姓名"
         label="姓名"
         placeholder="请输入姓名"
@@ -27,7 +26,7 @@
       />
       <van-field
         size="large"
-        v-model="password"
+        v-model="state.telphone"
         type="tel"
         name="手机号"
         label="手机号"
@@ -53,15 +52,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { areaList } from "@vant/area-data";
 import { showSuccessToast, showLoadingToast, closeToast, showToast } from "vant";
 
 const result = ref("");
 const showArea = ref(false);
 const checked = ref(true);
-const username = ref(null);
-const password = ref(null);
+const state = reactive({
+  username: null,
+  telphone: null
+})
 
 const onConfirm = ({ selectedOptions }) => {
   showArea.value = false;
@@ -70,7 +71,7 @@ const onConfirm = ({ selectedOptions }) => {
 
 const onSubmit = () => {
   if (checked.value == false) {
-    showToast('请勾选协议！')
+    showToast("请勾选协议！");
   } else {
     const toast = showLoadingToast({
       duration: 0,

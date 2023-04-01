@@ -15,7 +15,4 @@ import UserFooter from "./UserFooter.vue";
 </script>
 
 <style lang="stylus" scoped>
-@import '../../assets/css/index.styl';
-.user
-    // padding 0 20px
 </style>

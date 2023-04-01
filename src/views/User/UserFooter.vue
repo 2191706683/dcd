@@ -9,32 +9,29 @@
 <script setup></script>
 
 <style lang="stylus" scoped>
-/* pages/user/childCpns/jr-user_foot/jr-user_foot.wxss */
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 30px;
-  border-top: 7px solid #f2f2f2;
-}
-.page img {
-  padding: 7px 0;
-  width: 70px;
-  height: 60px;
-}
-.page .title {
-  padding: 7px 0;
-}
-.page .publish {
-  margin-top: 7px;
-  padding: 7px 10px;
-  width: 75px;
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
-  color: #fff;
-  background-color: #ffcc32;
-  border-radius: 2px;
-  font-size: 11pt;
-}
+@import '../../assets/css/index.styl';
+.page 
+    fa()
+    flex-direction column
+    padding-top 30px
+    border-top 7px solid #f2f2f2
+
+.page img 
+    wh(70px, 60px)
+    padding 7px 0
+
+.page .title 
+    padding 7px 0
+
+.page .publish 
+    wh(75px, 20px)
+    margin-top 7px
+    padding 7px 10px
+    text-align center
+    line-height 20px
+    color #fff
+    background-color #ffcc32
+    border-radius 2px
+    font-size 11pt
+
 </style>

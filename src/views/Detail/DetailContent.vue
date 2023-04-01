@@ -14,7 +14,7 @@
         </div>
         <div class="detail_cart-button">
           <span @click="addCar(item)">加入购物车</span>
-          <span @click="goToPage('buy', item.title)">立即购买</span>
+          <span @click="goToPage('buy', item)">立即购买</span>
         </div>
       </div>
     </div>
@@ -34,19 +34,23 @@ const props = defineProps({
     value: [],
   },
 });
-
+/* 先判断是否登录，若无，跳转登录，若有，添加该item车到购物车内，
+    添加成功后跳出弹窗提示
+*/
 const addCar = (item) => {
   const isLogin = localStorage.getItem("isLogin");
   if (!isLogin) {
-    router.push({name: 'login'})
+    router.push({ name: "login" });
   } else {
     showSuccessToast("添加成功");
     cartStore.addCar(item);
   }
 };
 
-const goToPage = (path, title) => {
-  router.push({ name: `${path}`, query: { title: `${title}` } });
+/* 跳转到购买页面，并带上该item车所有参数，
+  以便购物页面显示该标题 */
+const goToPage = (path, car) => {
+  router.push({ name: `${path}`, query: car });
 };
 </script>
 
@@ -60,16 +64,15 @@ const goToPage = (path, title) => {
             border-left 2px solid #000
             padding-left 10px
         .detail_content_cart
-            padding 20px
+            padding 20px 14px 20px 14px
             height 94px
             font-size 16px
             background-color #fff
             .detail_cart_header
                 fj()
                 .detail_cart_price
-                    display flex
+                    fa(end)
                     flex-direction column
-                    align-items end
                 .detail_cart_price span:first-child
                     font-size 17px
                     color #ef4444

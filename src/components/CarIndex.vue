@@ -24,12 +24,11 @@ defineProps({
 </script>
 
 <style lang="stylus" scoped>
+@import '../assets/css/index.styl'
 .carindex_anchor 
     background-color #f7f8fc
     color red
-    width 100vw
-    height 25px
-    // border 1px solid #000
+    wh(100vw, 25px)
     .carindex_title
         color #979aa8
         font-weight normal
@@ -38,8 +37,7 @@ defineProps({
 .carindex_cell 
     display flex
     .carindex_icon
-        width 40px
-        height 40px
+        wh(40px, 40px)
         padding 10px 12px
     .carindex_text
         font-size 15px
