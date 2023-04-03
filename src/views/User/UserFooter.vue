@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup></script>  
 
 <style lang="stylus" scoped>
 @import '../../assets/css/index.styl';

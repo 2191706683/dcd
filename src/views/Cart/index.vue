@@ -43,23 +43,31 @@ import { showSuccessToast, showLoadingToast, closeToast, showToast } from "vant"
 
 const cartStore = useCartStore();
 
-let len = ref(cartStore.state.carList.length);
+let len = computed(() => cartStore.state.carList.length);
 let carList = computed(() => cartStore.state.carList);
 let sumPrice = computed(() => cartStore.sumPrice);
 
 let checked = ref(null);
 
+// 先判断是否勾选了同意，若无，则探出提示，若勾选了，则进行相关步骤
 const onSubmit = () => {
   if (sumPrice.value == 0) {
     showToast("请勾选商品！");
   } else {
+    // 先定义弹出层
     const toast = showLoadingToast({
       duration: 0,
       forbidClick: true,
       message: "付款中...",
     });
-
+    // 定义弹出层显示的倒计时
     let second = 1;
+
+    /* 进行一秒定时, 倒计时先逐渐减一,如果不为0,则弹出层消息不变
+        若为0,则清除该定时,并弹出成功弹窗,之后对carList进行遍历
+        若该车被选中,则调用store中删除函数,否则,i++
+        并关闭弹窗,最后进行页面刷新
+    */
     const timer = setInterval(() => {
       second--;
       if (second) {
@@ -80,6 +88,8 @@ const onSubmit = () => {
     }, 1000);
   }
 };
+
+// 点击按钮,调用store中的函数,进行全选
 const checkAll = (bool) => {
   cartStore.checkAll(bool);
 };

@@ -56,30 +56,39 @@ import { ref, reactive } from "vue";
 import { areaList } from "@vant/area-data";
 import { showSuccessToast, showLoadingToast, closeToast, showToast } from "vant";
 
+// 定义购车城市并赋值
 const result = ref("");
+// 定义购车弹出层选中的城市
 const showArea = ref(false);
-const checked = ref(true);
+const checked = ref(false);
 const state = reactive({
   username: null,
   telphone: null
 })
 
+// 如果点击确认按钮弹窗，则把选中的值传入result中，并带上/
 const onConfirm = ({ selectedOptions }) => {
   showArea.value = false;
   result.value = selectedOptions.map((item) => item.text).join("/");
 };
 
+// 先判断是否勾选了同意，若无，则探出提示，若勾选了，则进行相关步骤
 const onSubmit = () => {
   if (checked.value == false) {
     showToast("请勾选协议！");
   } else {
+    // 先定义弹出层
     const toast = showLoadingToast({
       duration: 0,
       forbidClick: true,
       message: "付款中...",
     });
-
+    // 定义弹出层显示的倒计时
     let second = 2;
+    
+    /* 进行一秒定时, 倒计时先逐渐减一,如果不为0,则弹出层消息不变
+        若为0,则清除该定时,并弹出成功弹窗并关闭,最后进行页面刷新
+    */
     const timer = setInterval(() => {
       second--;
       if (second) {

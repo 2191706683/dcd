@@ -3,7 +3,7 @@
     <Navbar title="雪铁龙C6" />
     <div class="buytype">
       <template v-for="item in detailData" :key="item.id">
-        <div @click="choose(item)" class="cell">
+        <div @click="goToPage('buy', item)" class="cell">
           <div class="cell_left">{{ item.title }}</div>
           <div class="cell_right">
             <span>{{ item.price }}万</span>
@@ -17,8 +17,9 @@
 
 <script setup>
 import Navbar from "@/components/Navbar.vue";
-import { useDetailStore } from "@/store/detail.js";
+
 import { onMounted, computed } from "vue";
+import { useDetailStore } from "@/store/detail.js";
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -26,10 +27,12 @@ const detailStore = useDetailStore();
 
 const detailData = computed(() => detailStore.state.detailData);
 
-const choose = (car) => {
-  router.push({ name: 'buy', query: car, replace:true});
+// 跳转指定页面，并把选中的车传入，消除该页面历史，能直接返回上一页面
+const goToPage = (path ,car) => {
+  router.push({ name: `${path}`, query: car, replace:true});
 }
 
+// 挂载后加载所有车的数据
 onMounted(() => {
   detailStore.loadDetailContent();
 });

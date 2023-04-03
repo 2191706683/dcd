@@ -64,7 +64,7 @@ const addAll = (cars) => {
   }
 };
 
-// 挂载后获取详情接口的相关数据
+// 挂载后获取详情下部分接口的相关数据
 onMounted(async () => {
   await detailStore.loadDetailContent();
 });

@@ -8,6 +8,7 @@ export const useDetailStore = defineStore('detail', () => {
         detailHeader: {}
     })
 
+    // 调用getDetail函数把数据获取到并解构，把值放入state中
     const loadDetailContent = async () => {
         const { data } = await getDetail()
         state.detailData = data.detail

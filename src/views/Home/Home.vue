@@ -26,7 +26,7 @@ import { ref } from "vue";
 
 // 定义tab标签组件的下标
 let active = ref(null);
-// 定义骨架屏的显示
+// 定义下拉刷新的显示
 let isLoading = ref(true);
 
 // 下拉刷新

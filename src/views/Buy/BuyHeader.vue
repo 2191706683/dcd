@@ -33,7 +33,10 @@ defineProps({
     }
 })
 const router = useRouter()
-
+/* 
+    跳转传入的类型选择页面，并消除该路由历史记录，
+    以便返回时能直接返回上一页面，针对一键立即购买
+ */
 const goToPage = (path) => {
     router.push({name: `${path}`, replace:true})
 }

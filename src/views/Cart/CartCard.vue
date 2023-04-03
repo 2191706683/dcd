@@ -23,15 +23,16 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useCartStore } from "@/store/cart.js";
 import { showSuccessToast } from 'vant';
-import { ref } from 'vue'
 
 // 使用defineEmits创建名称，接受一个数组
 // const emit = defineEmits(['clickChild'])
 
 const cartStore = useCartStore();
 
+// 接收父组件传来的所有车的值
 const props = defineProps({
   cardData: {
     type: Object,
@@ -45,21 +46,24 @@ const cardData = props.cardData;
 //   emit('clickChild',cardData.isChecked)
 // }
 
+// 点击加号进行数量加1
 const add = (cardData) => {
   cartStore.addCar(cardData);
 };
 
+// 点击减号进行数量减一,并进行判断是否数量大于一
 const decrease = (cardData) => {
   if (cardData.num > 1) {
     cartStore.decreaseCar(cardData);
   }
 };
 
+// 删除该车在购物车中的信息
 const deleteC = (cardData) => {
   let len = ref(cartStore.state.carList.length);
-  console.log(len.value)
   cartStore.deleteCar(cardData);
   showSuccessToast('删除成功');
+  // 判断是否是最后一个车,如果是,则进行页面刷新,使空购物车的信息能显现
   if (len.value == 1) {
     location.reload()
   }
