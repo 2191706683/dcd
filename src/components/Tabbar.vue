@@ -11,12 +11,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useCartStore } from '../store/cart';
 
 const cartStore = useCartStore()
 
-const len = ref(cartStore.state.carList.length)
+const len = computed(() => cartStore.state.carList.length)
 
 let active = ref(null)
 </script>

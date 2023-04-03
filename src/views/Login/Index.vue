@@ -7,7 +7,10 @@
       background="#eeeeee"
       color="#000"
       mode="closeable"
-      >您需要<router-link to="/login">登录</router-link>才能继续访问或回<router-link to="/">首页</router-link>
+      >您需要<router-link to="/login">登录</router-link>才能继续访问或回<router-link
+        to="/"
+        >首页</router-link
+      >
     </van-notice-bar>
     <div class="login_icon">
       <img
@@ -105,8 +108,8 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { login, register } from '@/service/user.js'
-import md5 from 'js-md5'
+import { login, register } from "@/service/user.js";
+import md5 from "js-md5";
 import {
   showSuccessToast,
   showLoadingToast,
@@ -125,6 +128,7 @@ const state = reactive({
   password1: "",
 });
 
+// 切换登录还是注册
 const toggle = (type) => {
   state.type = type;
 };
@@ -133,22 +137,33 @@ const backPage = () => {
   history.back();
 };
 
+// 判断当前状态类型是否为loing，并判断是否勾选了同意，若无，则探出提示，若勾选了，则进行相关步骤
 const onSubmit = async (values) => {
   if (state.type === "login") {
     if (!checked.value) {
       showToast("请勾选协议！");
     } else {
+      // 把表单的用户名和密码传给登录接口，返回状态码和信息给data
       const data = await login({
-        "loginName": values.username,
-        "passwordMd5": md5(values.password)
-      })
+        loginName: values.username,
+        passwordMd5: md5(values.password),
+      });
+      // 定义弹出层显示的倒计时
       let second = 1;
+      // 定义弹出层
       const toast = showLoadingToast({
         duration: 0,
         forbidClick: true,
         message: "登录中...",
       });
 
+      /* 进行一秒定时, 倒计时先逐渐减一,如果不为0,则弹出层消息不变
+        若为0,则清除该定时,检查登录接口返回的状态码是否为200，若为200，则登录成功，
+        设置isLogin为true,并把返回的token设置到本地存储中，
+        弹出登录成功窗口，跳转到首页
+        否则弹出登录接口返回的信息
+        并弹出成功弹窗并关闭,最后进行页面刷新
+      */
       const timer = setInterval(() => {
         second--;
         if (second) {
@@ -157,9 +172,9 @@ const onSubmit = async (values) => {
           clearInterval(timer);
           if (data.resultCode == 200) {
             localStorage.setItem("isLogin", true);
-            localStorage.setItem("token", data.data)
+            localStorage.setItem("token", data.data);
             showSuccessToast("登录成功");
-            window.location.href = '/'
+            window.location.href = "/";
           } else {
             showFailToast(`${data.message}`);
           }
@@ -168,17 +183,21 @@ const onSubmit = async (values) => {
       }, 1000);
     }
   } else {
+    /* 若当前状态为register,则向注册接口发送post请求，并传参，
+      返回状态码和信息    
+    */
     const data = await register({
-      "loginName": values.username1,
-      "password": values.password1
-    })
+      loginName: values.username1,
+      password: values.password1,
+    });
+    // 若状态码不为0，弹出接口返回的信息
     if (data.resultCode !== 200) {
-      showFailToast(`${data.message}`)
+      showFailToast(`${data.message}`);
     } else {
+      // 若为200，弹出注册成功并跳转到登录页面
       showSuccessToast("注册成功");
-      router.push({name: 'login'})
+      router.push({ name: "login" });
     }
-    
   }
 };
 </script>
