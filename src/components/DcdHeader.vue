@@ -19,8 +19,7 @@
 <style lang="stylus" scoped>
 @import '../assets/css/index.styl'
 .DcdHeader {
-    display flex
-    align-items center
+    fa()
     padding 8px 12px 0 12px
 }
 .DcdHeader_img
@@ -29,7 +28,7 @@
     margin-left 15px
     width 85%
 .DcdHeader_button
-    background-color $primary
     wh(26%, 25px)
+    background-color $primary
     font-size 10px
 </style>

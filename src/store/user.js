@@ -12,7 +12,6 @@ export const useUserStore = defineStore('user', () => {
     const loadUser = async () => {
         const { data } = await getUser()
         state.gridList = data.gridList
-        // console.log(data.gridList, '---')
     }
     return {
         state,

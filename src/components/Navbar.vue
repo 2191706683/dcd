@@ -36,6 +36,7 @@ const router = useRouter();
 
 const onClickLeft = () => history.back();
 
+// 传入相关的页面名字跳转相应的页面
 const goToPage = (path) => {
   router.push({ name: `${path}` });
 };

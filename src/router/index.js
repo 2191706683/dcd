@@ -57,9 +57,11 @@ const router = createRouter({
     routes
 })
 
+// 路由守卫，登录判断
 router.beforeEach((to, from, next) => {
     const { requiredLogin } = to.meta
     const isLogin = localStorage.getItem('isLogin')
+    // 判断是否已经登录并是否页面需要登录权限，如果是，跳转到登录页面，若否，则放行
     if (!isLogin && requiredLogin) {
         next('login')
     } else {

@@ -32,11 +32,14 @@
 <script setup>
 import { showConfirmDialog } from "vant";
 
+// 退出登录状态并刷新页面
 const logout = () => {
+  // 弹出确认是否退出
   showConfirmDialog({
     message: "你真的舍得离开我吗？",
   })
     .then(() => {
+      // 点击确认，移除本地存储的登录数据，并重新加载
       // on confirm
       localStorage.removeItem("isLogin");
       location.reload();

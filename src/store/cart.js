@@ -35,15 +35,18 @@ export const useCartStore = defineStore('cart', () => {
         localStorage.setItem('carList', JSON.stringify(state.carList))
     }
 
+    // 对在购物车的商品进行计算总和价格
     let sumPrice = computed(() => {
+        // 初始化为零
         let sum = 0
+        // 对购物车中的列表进行计算总和
         state.carList.forEach(item => {
             if (item.isChecked) {
                 sum += item.num * item.price
             }
-            localStorage.setItem('carList', JSON.stringify(state.carList))
         })
-        return sum.toFixed(2)
+        // 返回计算的总和
+        return sum
     })
 
     // 在购物车的基础上所有商品加一

@@ -26,9 +26,9 @@ defineProps({
 <style lang="stylus" scoped>
 @import '../assets/css/index.styl'
 .carindex_anchor 
+    wh(100vw, 25px)
     background-color #f7f8fc
     color red
-    wh(100vw, 25px)
     .carindex_title
         color #979aa8
         font-weight normal

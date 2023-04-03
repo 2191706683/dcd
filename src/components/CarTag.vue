@@ -16,10 +16,10 @@ defineProps({
 <style lang="stylus" scoped>
 @import '../assets/css/index.styl'
 .car_tag
-    margin-top 13px
-    height 80px
     fj()
     fa(center) 
+    margin-top 13px
+    height 80px
     flex-wrap wrap
     .car_tagitem
         wh(23%, 32px)

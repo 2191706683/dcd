@@ -17,10 +17,13 @@ import { useUserStore } from "@/store/user";
 
 const userStore = useUserStore();
 
+// 定义图标列表数据
 const gridList = computed(() => userStore.state.gridList);
 
+// 定义骨架屏是否加载
 const loading = ref(true);
 
+// 挂载后获取用户图标数据，并关闭骨架屏
 onMounted(async () => {
   await userStore.loadUser();
   loading.value = false;
