@@ -6,7 +6,7 @@
                     <span class="carindex_title">{{item.title}}</span>
                 </van-index-anchor>
                 <div class="carindex_cell" v-for="cell in item.cell">
-                    <img class="carindex_icon" :src="cell.icon" alt="">
+                    <img class="carindex_icon" v-lazy="cell.icon" alt="">
                     <span class="carindex_text">{{cell.text}}</span>
                 </div>
            </div>

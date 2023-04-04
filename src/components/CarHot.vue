@@ -8,7 +8,7 @@
         v-for="item in carhot"
         :key="item.id"
       >
-        <img class="car_hotcar_img" :src="item.img" alt="" />
+        <img class="car_hotcar_img" v-lazy="item.img" alt="" />
         <span>{{ item.title }}</span>
       </router-link>
     </div>

@@ -4,6 +4,7 @@ import App from './App.vue'
 import 'vant/lib/index.css'
 import 'lib-flexible/flexible'
 import '@/mock/index'
+import VueLazyload from 'vue-lazyload'
 
 import router from '@/router/index.js'
 import { createPinia } from 'pinia'
@@ -69,5 +70,6 @@ app
     .use(Skeleton)
     .use(PullRefresh)
     .use(createPinia())
+    .use(VueLazyload)
     .use(router)
     .mount('#app')

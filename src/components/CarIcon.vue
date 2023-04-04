@@ -1,7 +1,7 @@
 <template>
   <div class="car_icon">
     <div class="car_icon_item" v-for="item in caricon" :key="item.id">
-      <img class="car_icon_img" :src="item.icon" alt="" />
+      <img class="car_icon_img" v-lazy="item.icon" alt="" />
       <span>{{ item.title }}</span>
     </div>
   </div>

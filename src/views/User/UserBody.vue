@@ -3,7 +3,7 @@
     <van-skeleton style="height: 150px;" :row="5" :loading="loading">
       <div class="grid-list">
         <div class="grid-item" v-for="item in gridList" :key="item.id">
-          <img :src="item.icon" />
+          <img v-lazy="item.icon" />
           <span>{{ item.name }}</span>
         </div>
       </div>
