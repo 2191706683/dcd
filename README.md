@@ -1,3 +1,11 @@
+![image](https://user-images.githubusercontent.com/101383800/236600159-5055da18-5aeb-4eb4-8280-8fa397e91d98.png)
+![image](https://user-images.githubusercontent.com/101383800/236600191-a80b1f97-0399-473a-804c-8beee1c61cd6.png)
+![image](https://user-images.githubusercontent.com/101383800/236600216-6efb054d-5ad6-4a3f-a94a-f237d1593bfc.png)
+![image](https://user-images.githubusercontent.com/101383800/236600203-ee92c595-e093-46b3-b1aa-1dc382517845.png)
+![image](https://user-images.githubusercontent.com/101383800/236600207-6cfff981-93e4-4a62-8cd6-221dda673a03.png)
+
+![image](https://user-images.githubusercontent.com/101383800/236600174-69ad4ef6-e269-49f0-ab80-aa7c30b25f5d.png)
+![image](https://user-images.githubusercontent.com/101383800/236600228-34403bb2-33c8-4015-b01c-76e98fd60611.png)
 npm i vue-router pinia @types/node stylus
 
 - vite.config.ts 配置
@@ -52,3 +60,4 @@ npm i vue-router pinia @types/node stylus
   - 请求数据时记得使用async异步
 
 - 购买页面的地区选择需要npm i @vant/area-data
+
