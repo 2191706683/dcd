@@ -39,6 +39,7 @@ import {
     PullRefresh
 } from 'vant';
 
+const pinia = createPinia()
 const app = createApp(App)
 app
     .use(Tabbar)
@@ -69,7 +70,7 @@ app
     .use(NoticeBar)
     .use(Skeleton)
     .use(PullRefresh)
-    .use(createPinia())
-    .use(VueLazyload)
+    .use(pinia)
     .use(router)
+    .use(VueLazyload)
     .mount('#app')

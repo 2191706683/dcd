@@ -144,6 +144,10 @@ const onSubmit = async (values) => {
       showToast("请勾选协议！");
     } else {
       // 把表单的用户名和密码传给登录接口，返回状态码和信息给data
+      // const decoded = jwt.verify(values.password, PUBLIC_KEY, {
+      //   algorithms: ["RS256"],
+      // })
+      // console.log(decoded)
       const data = await login({
         loginName: values.username,
         passwordMd5: md5(values.password),
