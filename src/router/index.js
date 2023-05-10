@@ -69,7 +69,7 @@ const routes = [
     },
     // 所有未定义路由，全部重定向到404页
     {
-        path: '/:catchAll(.*)',
+        path: '/:pathMatch(.*)',
         redirect: '/404'
     }
 ]
