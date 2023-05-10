@@ -61,6 +61,16 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import('@/views/Login/Index.vue')
+    },
+    {
+        path: '/404',
+        name: 'NotFound',
+        component: () => import('@/views/NotFound/Index.vue')
+    },
+    // 所有未定义路由，全部重定向到404页
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/404'
     }
 ]
 
@@ -68,7 +78,5 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes
 })
-
-// 路由守卫，登录判断
 
 export default router

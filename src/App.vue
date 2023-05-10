@@ -4,6 +4,7 @@ import { useRouter } from "vue-router"; // hooks
 
 const router = useRouter();
 
+// 路由守卫，登录判断，以及主子页面之间的切换
 router.beforeEach((to, from, next) => {
   const { requiredLogin } = to.meta;
   const isLogin = localStorage.getItem("isLogin");
@@ -16,7 +17,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.index > from.meta.index) {
     // 从主页面 去到子页面
     state.transitionName = "slide-left";
-  } else if (to.meta.index < from.meta.index) {
+  } else if (to.meta.index < from.meta.index) { // 从子页面到主页面
     state.transitionName = "slide-right";
   } else {
     // 平级
