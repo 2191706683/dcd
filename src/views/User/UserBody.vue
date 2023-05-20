@@ -35,7 +35,6 @@ onMounted(async () => {
 .grid-list 
     display flex
     flex-wrap wrap
-
 .grid-item 
     fj(center)
     fa()
