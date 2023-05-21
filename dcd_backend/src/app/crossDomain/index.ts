@@ -6,7 +6,7 @@ export default async (ctx: any, next: any) => {
     // 设置所允许的 HTTP请求方法
     ctx.set('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
     // 表明服务器支持的所有头信息字段   服务器收到请求以后，请求 Origin，Access-Control-Request-Method 和 Access-Control-Request-Headers 字段以后，确认允许跨域请求，做出回应
-    ctx.set('Access-Control-Allow-Headers', 'x-requested-with, accept, origin, content-type, Authorization');
+    ctx.set('Access-Control-Allow-Headers', 'x-requested-with, accept, origin, content-type, Authorization, token');
     // Content-Type 表示具体请求中的媒体类型信息
     ctx.set('Content-Type', 'application/json;charset=utf-8');
     // ctx.set('Content-Type', 'application/x-www-form-urlencoded');

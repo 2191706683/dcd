@@ -1,25 +1,22 @@
 import { Context, Next } from 'koa'
 import * as userService from './user.service'
+import bcrypt from 'bcryptjs';
 
-export const store = async (
+export const store = (
     ctx: any,
     next: any
 ) => {
     // 请求体中解出用户名 密码
     const { name, password } = ctx.request.body
     // sql 数据库和node 服务器 一定是分离
-    if (!name || !password) return next();
     console.log(name, password, '////')
     try {
-        // const data = await userService.createUser({name, password});
+        const data = userService.createUser({name, password});
         ctx.body = {
-            statusCode: 201,
-            // data
-        }
-        console.log('ps')
+            statusCode: 200
+        };
     } catch (error) {
-        console.log('error')
-        next(ctx.error = error);
+        return next(ctx.error = error);
     }
     next();
 }
@@ -28,17 +25,18 @@ export const show = async (
     ctx: any,
     next: any
 ) => {
-    const { userId } = ctx.request.params;
+    const { name, password } = ctx.request.body;
     try {
-        const user = await userService.getUserById(parseInt(userId, 10));
+        const user = await userService.getUserByName(name);
         // // 经验
         if (!user) {
             return next(ctx.error = 'USER_NOT_FOUND');
         }
-        console.log(user);
-        ctx.body = {
-            statusCode: 200,
-            user
+        let isValid = bcrypt.compare(password, user.password);
+        if (isValid) {
+            ctx.body = {
+                statusCode: 200
+            }  
         }
     } catch (error) {
         next(ctx.error = error);

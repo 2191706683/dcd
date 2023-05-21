@@ -6,10 +6,10 @@ export const defaultErrorHandler = (
     next: any
 ) => {
     let statusCode: number, message: string;
-    // console.log(ctx.error, '--');
+    console.log(ctx.error, '--/');
     if (ctx.error) {
 
-        console.log(ctx.error, '--');
+        console.log(ctx.error, '//');
 
         /**
          * 
@@ -64,6 +64,7 @@ export const defaultErrorHandler = (
             statusCode,
             message
         }
+    } else {
+        next();
     }
-    next()
 }   

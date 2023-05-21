@@ -109,7 +109,7 @@
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { login, register } from "@/service/user.js";
-import md5 from "js-md5";
+// import md5 from "js-md5";
 import {
   showSuccessToast,
   showLoadingToast,
@@ -144,13 +144,11 @@ const onSubmit = async (values) => {
       showToast("请勾选协议！");
     } else {
       // 把表单的用户名和密码传给登录接口，返回状态码和信息给data
-      // const decoded = jwt.verify(values.password, PUBLIC_KEY, {
-      //   algorithms: ["RS256"],
-      // })
       // console.log(decoded)
+      // console.log(await bcrypt.hash(values.password, 10), '---')
       const data = await login({
-        loginName: values.username,
-        passwordMd5: md5(values.password),
+        name: values.username,
+        password: values.password
       });
       // 定义弹出层显示的倒计时
       let second = 1;
@@ -174,7 +172,7 @@ const onSubmit = async (values) => {
           toast.message = `登录中...`;
         } else {
           clearInterval(timer);
-          if (data.resultCode == 200) {
+          if (data.statusCode == 200) {
             localStorage.setItem("isLogin", true);
             localStorage.setItem("token", data.data);
             showSuccessToast("登录成功");
@@ -190,17 +188,18 @@ const onSubmit = async (values) => {
     /* 若当前状态为register,则向注册接口发送post请求，并传参，
       返回状态码和信息    
     */
+  //  console.log(await bcrypt.hash(values.password1, 10))
     const data = await register({
-      loginName: values.username1,
+      name: values.username1,
       password: values.password1,
     });
     // 若状态码不为0，弹出接口返回的信息
-    if (data.resultCode !== 200) {
+    if (data.statusCode !== 200) {
       showFailToast(`${data.message}`);
     } else {
       // 若为200，弹出注册成功并跳转到登录页面
       showSuccessToast("注册成功");
-      router.push({ name: "login" });
+      state.type = "login"
     }
   }
 };

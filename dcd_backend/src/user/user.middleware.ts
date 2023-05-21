@@ -8,9 +8,8 @@ export const hashPassword = async (
     ctx: any,
     next: any
 ) => {
-    const { password } = ctx.request.body;
-    if (!password) return next();
-    ctx.request.body.password = await bcrypt.hash(password, 10);
+    // const { password } = ctx.request.body;
+    // ctx.request.body.password = await bcrypt.hash(password, 10);
     next();
 }
 
