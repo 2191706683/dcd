@@ -25,19 +25,21 @@ export const show = async (
     ctx: any,
     next: any
 ) => {
-    const { name, password } = ctx.request.body;
+    const { name } = ctx.request.body;
     try {
         const user = await userService.getUserByName(name);
         // // 经验
         if (!user) {
             return next(ctx.error = 'USER_NOT_FOUND');
         }
-        let isValid = bcrypt.compare(password, user.password);
-        if (isValid) {
-            ctx.body = {
-                statusCode: 200
-            }  
-        }
+        // let isValid = await bcrypt.compare(password, user.password);
+        // console.log(isValid)
+        // if (isValid) {
+        ctx.body = {
+            statusCode: 200,
+            data: user
+        }  
+        // }
     } catch (error) {
         next(ctx.error = error);
     }
@@ -49,7 +51,6 @@ export const userGrid = async (
     next: any
 ) => {
     const gridList = await userService.getUserGrid();
-    // console.log(user, '==f=ds=fds')
     ctx.body = {
         statusCode: 200,
         data: gridList

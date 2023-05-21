@@ -4,7 +4,7 @@ import axios from "axios";
 // axios.defaults.baseURL = '//backend-api-01.newbee.ltd/api/v1'
 axios.defaults.baseURL = 'http://localhost:3000'
 // 请求头 带上 Content-Type
-axios.defaults.headers['token'] = localStorage.getItem('token') || ''
+axios.defaults.headers['Authorization'] = localStorage.getItem('token') || ''
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 

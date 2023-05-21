@@ -42,6 +42,7 @@ const logout = () => {
       // 点击确认，移除本地存储的登录数据，并重新加载
       // on confirm
       localStorage.removeItem("isLogin");
+      localStorage.removeItem("token");
       location.reload();
     })
     .catch(() => {

@@ -174,9 +174,10 @@ const onSubmit = async (values) => {
           clearInterval(timer);
           if (data.statusCode == 200) {
             localStorage.setItem("isLogin", true);
+            console.log(data.data)
             localStorage.setItem("token", data.data);
             showSuccessToast("登录成功");
-            window.location.href = "/";
+            // window.location.href = "/";
           } else {
             showFailToast(`${data.message}`);
           }

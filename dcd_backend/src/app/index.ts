@@ -2,10 +2,13 @@ const koa = require('koa');
 // const cors = require('cors')
 const bodyParser = require('koa-bodyparser');
 const session = require('koa-session-minimal');
-const userRouter = require('../user/user.router') 
+const userRouter = require('../user/user.router') ;
+const json = require('koa-json');
+
 
 // import userRouter from '../user/user.router';
 import { defaultErrorHandler } from './app.middleware';
+import { currentUser } from '../auth/auth.middleware';
 import cors from './crossDomain';
 
 
@@ -22,8 +25,11 @@ const sessionConfig = {
     secure: false,
     sameSite: null
 }
+app.use(json())
 
-app.use(session(sessionConfig, app))
+app.use(session(sessionConfig, app));
+
+// app.use(currentUser);
 
 /**
  * 跨域资源共享
