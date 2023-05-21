@@ -14,6 +14,7 @@ import {
 routers.post('/users/register', validateUserData, defaultErrorHandler, hashPassword , userController.store);
 // routers.get('/users/:userId', userController.show);
 routers.post('/users/login', userController.show);
+routers.get('/user', userController.userGrid);
 
 /**
  * 导出路由

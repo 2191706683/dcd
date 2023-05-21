@@ -38,6 +38,20 @@ export const createUser = async (user: UserModel) => {
     return data;
 }
 
+export const getUserGrid = async () => {
+    const statement = `
+        SELECT
+            gridList.id,
+            gridList.icon,
+            gridList.name
+        FROM
+            gridList
+    `;
+    const [data] = await connection.promise().query(statement);
+
+    return data;
+}
+
 /**
  * 按用户名获取
  */

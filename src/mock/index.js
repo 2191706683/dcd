@@ -25,9 +25,9 @@ Mock.mock(/\/detail/, 'get', () => {
 })
 
 // 设置用户图标数据的路径
-Mock.mock(/\/user/, 'get', () => {
-    return {
-        code: 0,  // 返回状态码
-        data: user  // 返回数据
-    }
-})
+// Mock.mock(/\/user/, 'get', () => {
+//     return {
+//         code: 0,  // 返回状态码
+//         data: user  // 返回数据
+//     }
+// })

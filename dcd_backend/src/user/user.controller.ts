@@ -43,3 +43,15 @@ export const show = async (
     }
     next();
 }
+
+export const userGrid = async (
+    ctx: any,
+    next: any
+) => {
+    const gridList = await userService.getUserGrid();
+    // console.log(user, '==f=ds=fds')
+    ctx.body = {
+        statusCode: 200,
+        data: gridList
+    }
+};
