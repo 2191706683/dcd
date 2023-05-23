@@ -3,6 +3,7 @@ const koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const session = require('koa-session-minimal');
 const userRouter = require('../user/user.router') ;
+const authRouter = require('../auth/auth.router') ;
 const json = require('koa-json');
 
 
@@ -25,16 +26,19 @@ const sessionConfig = {
     secure: false,
     sameSite: null
 }
-app.use(json())
-
-app.use(session(sessionConfig, app));
-
-// app.use(currentUser);
 
 /**
  * 跨域资源共享
  */
 app.use(cors);
+
+/**
+ * 处理json
+ */
+app.use(json())
+
+app.use(session(sessionConfig, app));
+
 
 /**
  * 通过调用body-parser中间件来解析HTTP请求中的请求体。
@@ -44,8 +48,14 @@ app.use(bodyParser({
     formLimit: '1mb'
 }));
 
+/**
+ * 当前用户
+ */
+app.use(currentUser);
+
 
 app.use(userRouter.routes());
+app.use(authRouter.routes());
 
 /**
  * 错误处理

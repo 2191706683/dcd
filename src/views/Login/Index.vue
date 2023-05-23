@@ -144,8 +144,6 @@ const onSubmit = async (values) => {
       showToast("请勾选协议！");
     } else {
       // 把表单的用户名和密码传给登录接口，返回状态码和信息给data
-      // console.log(decoded)
-      // console.log(await bcrypt.hash(values.password, 10), '---')
       const data = await login({
         name: values.username,
         password: values.password
@@ -174,7 +172,6 @@ const onSubmit = async (values) => {
           clearInterval(timer);
           if (data.statusCode == 200) {
             localStorage.setItem("isLogin", true);
-            console.log(data.data)
             localStorage.setItem("token", data.data);
             showSuccessToast("登录成功");
             // window.location.href = "/";

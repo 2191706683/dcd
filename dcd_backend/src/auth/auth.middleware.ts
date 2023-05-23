@@ -10,32 +10,27 @@ export const currentUser = (
   next: any
 ) => {
   let user: TokenPayload = {
-    id: null,
-    name: 'anonymous',
+    id: null
   };
 
   try {
     // 提取 Authorization
-    console.log(ctx.request.headers,'sdfdsfd')
-    const authorization = ctx.request.header['Authorization'];
+    const authorization = ctx.request.headers.authorization;
     // 安全性前缀 提取令牌环
-    const token = authorization.replace('Bearer', '');
-
-    if (token) {
-      const decoded = jwt.verify(token, PUBLIC_KEY, {
+    if (authorization) {
+      const decoded = jwt.verify(authorization, PUBLIC_KEY, {
         algorithms: ['RS256']
-      })
+      });
       user = decoded as TokenPayload;
+      // 上下文对象
+      ctx.user = user;
     }
-
 
   } catch (error) {
     console.log(error)
-    next(ctx.error = error);
+    return next(ctx.error = error);
   }
-  // 上下文对象
-  ctx.user = user;
-  next();
+  return next();
 }
 
 /**
@@ -46,7 +41,8 @@ export const authGuard = (
   next: any,
 ) => {
   console.log('👮🏼‍♀️ 验证用户身份');
-  if (ctx.user.id) {
+  console.log(ctx.user,'sdjfo')
+  if (ctx.user?.id) {
     next();
   } else {
     next(ctx.error = 'UNAUTHORIZED');

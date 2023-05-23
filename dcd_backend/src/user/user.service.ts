@@ -12,7 +12,8 @@ export const getUser = (condition: string) => {
         const statement = `
             SELECT
                 user.id,
-                user.name
+                user.name,
+                user.password
             FROM
                 user
             WHERE

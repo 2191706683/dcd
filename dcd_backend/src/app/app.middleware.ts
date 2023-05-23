@@ -6,10 +6,9 @@ export const defaultErrorHandler = (
     next: any
 ) => {
     let statusCode: number, message: string;
-    console.log(ctx.error, '--/');
     if (ctx.error) {
 
-        console.log(ctx.error, '//');
+        console.log(ctx.error, '/sdf有错/');
 
         /**
          * 
@@ -65,6 +64,7 @@ export const defaultErrorHandler = (
             message
         }
     } else {
+        console.log('没有错误哦')
         next();
     }
 }   
