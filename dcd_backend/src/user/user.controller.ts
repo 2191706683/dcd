@@ -31,9 +31,6 @@ export const show = async (
     const { name, password } = ctx.request.body;
     try {
         const user = await userService.getUserByName(name);
-        // 签发令牌
-        const payload = user;
-        const token = signToken({ payload });
         // 经验
         if (!user) {
             return next(ctx.error = 'USER_NOT_FOUND');
@@ -41,11 +38,16 @@ export const show = async (
         let isValid = await bcrypt.compareSync(password, user.password);
         console.log(isValid,'密码正确')
         if (isValid) {
+            // 签发令牌
+            const payload = user;
+            const token = signToken({ payload });
             ctx.body = {
                 statusCode: 200,
                 data: token,
                 message: '密码正确'
             }  
+        } else {
+            return next(ctx.error = 'PASSWORD_DOES_NOT_MATCH')
         }
     } catch (error) {
         return next(ctx.error = error);
