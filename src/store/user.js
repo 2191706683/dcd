@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
        gridList: []
     })
     
-    // 获取newcar，energy数据 
+    // /获取newcar，energy数据 
     const loadUser = async () => {
         const { data } = await getUser()
         state.gridList = data
