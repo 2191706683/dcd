@@ -1,4 +1,5 @@
 <template>
+  <!--  -->
   <div class="cart">
     <div class="cart_header">
       <div class="cart_title">
@@ -6,7 +7,9 @@
         <span>管理</span>
       </div>
       <div class="cart_sum">共{{ len }}件宝贝</div>
-      <div class="empty" v-if="len==0">购物车空空如也，去<router-link to="/">首页</router-link>购物吧</div>
+      <div class="empty" v-if="len == 0">
+        购物车空空如也，去<router-link to="/">首页</router-link>购物吧
+      </div>
       <div v-else class="cardcontainer">
         <CartCard
           v-for="item in carList"
@@ -75,15 +78,15 @@ const onSubmit = () => {
       } else {
         clearInterval(timer);
         showSuccessToast("付款成功");
-        for (let i= 0; i < carList.value.length; ) {
+        for (let i = 0; i < carList.value.length; ) {
           if (carList.value[i].isChecked) {
             cartStore.deleteCar(carList.value[i]);
           } else {
-            i++
+            i++;
           }
         }
         closeToast();
-        location.reload()
+        location.reload();
       }
     }, 1000);
   }
@@ -127,7 +130,7 @@ onMounted(() => {
         background-color #ffcc32
         padding-bottom 90px
         .empty
-            margin-top 250px  
+            margin-top 250px
             text-align center
             font-size 16px
             letter-spacing 4px
