@@ -4,7 +4,7 @@ import { reactive, computed } from "vue";
 export const useCartStore = defineStore('cart', () => {
     const state = reactive({
         carList: JSON.parse(localStorage.getItem("carList")) || [],
-        // len: JSON.parse(localStorage.getItem("carList")).length || 0
+        // /len: JSON.parse(localStorage.getItem("carList")).length || 0
     })
 
     // 增加购物车中商品的数量
