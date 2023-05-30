@@ -1,5 +1,5 @@
 <template>
-  <!-- 底部发布功能，目前还没完成，需连数据库增加 -->
+  <!-- 底部发布功能，目前还没完成，需连数据库增加信息 -->
   <div class="page">
     <img src="https://i.imgtg.com/2023/03/28/jl3HL.png" alt="" />
     <div class="title">分享今天值得记录的瞬间</div>
