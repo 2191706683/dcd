@@ -8,7 +8,7 @@ axios.defaults.headers['Authorization'] = localStorage.getItem('token') || ''
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-// 响应拦截器
+// 响应拦截器,拦截后端传来的数据
 axios.interceptors.response.use((res) => {
     return res.data
 })
