@@ -8,7 +8,7 @@ Mock.setup({
     timeout: '50-1000'
 })
 
-// 设置首页数据的路径
+// /设置首页数据的路径
 Mock.mock(/\/tabcar/, 'get' , () => {
     return {
         code: 0, // 返回状态码
