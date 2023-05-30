@@ -18,6 +18,7 @@
         alt=""
       />
     </div>
+    <!-- 登录界面 -->
     <div class="login-body login" v-if="state.type === 'login'">
       <van-form @submit="onSubmit">
         <van-cell-group inset>
@@ -73,6 +74,7 @@
         </div>
       </van-form>
     </div>
+    <!-- 注册界面 -->
     <div class="login-body registry" v-else>
       <van-form @submit="onSubmit">
         <van-cell-group inset>
@@ -146,7 +148,7 @@ const onSubmit = async (values) => {
       // 把表单的用户名和密码传给登录接口，返回状态码和信息给data
       const data = await login({
         name: values.username,
-        password: values.password
+        password: values.password,
       });
       // 定义弹出层显示的倒计时
       let second = 1;
@@ -186,7 +188,7 @@ const onSubmit = async (values) => {
     /* 若当前状态为register,则向注册接口发送post请求，并传参，
       返回状态码和信息    
     */
-  //  console.log(await bcrypt.hash(values.password1, 10))
+    //  console.log(await bcrypt.hash(values.password1, 10))
     const data = await register({
       name: values.username1,
       password: values.password1,
@@ -197,7 +199,7 @@ const onSubmit = async (values) => {
     } else {
       // 若为200，弹出注册成功并跳转到登录页面
       showSuccessToast("注册成功");
-      state.type = "login"
+      state.type = "login";
     }
   }
 };
