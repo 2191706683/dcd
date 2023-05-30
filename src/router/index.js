@@ -67,7 +67,7 @@ const routes = [
         name: 'NotFound',
         component: () => import('@/views/NotFound/Index.vue')
     },
-    // 所有未定义路由，全部重定向到404页
+    // 所有未定义路由，全部都重定向到404页
     {
         path: '/:pathMatch(.*)',
         redirect: '/404'
