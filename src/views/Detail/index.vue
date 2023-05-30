@@ -1,4 +1,5 @@
 <template>
+  <!--  -->
   <div class="detail">
     <Navbar :title="detailHeader.name" />
     <DetailHeader :detailHeader="detailHeader" />
