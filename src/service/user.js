@@ -5,12 +5,12 @@ export const getUser = () => {
     return axios.get('/user')
 }
 
-// 登录
+// 登录 发送post请求
 // 对//backend-api-01.newbee.ltd/api/v1/user/login接口发送post请求并传参，返回状态码
 export const login = (params) => {
     return axios.post('/users/login', params)
 }
-// 注册
+// 注册 发送post请求
 // 对//backend-api-01.newbee.ltd/api/v1/user/register接口发送post请求并传参，返回状态码
 export const register = (params) => {
     return axios.post('/users/register', params)
