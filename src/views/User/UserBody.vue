@@ -1,4 +1,5 @@
 <template>
+  <!-- 用户页面中间部分，主要是Flex布局完成2行8个的小标签 -->
   <div class="page">
     <van-skeleton style="height: 150px;" :row="5" :loading="loading">
       <div class="grid-list">

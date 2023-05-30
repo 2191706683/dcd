@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+// 引入底部导航和子组件页面
 import Tabbar from "@/components/Tabbar.vue";
 import UserHeader from "./UserHeader.vue";
 import UserBody from "./UserBody.vue";

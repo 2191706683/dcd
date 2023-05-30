@@ -1,4 +1,5 @@
 <template>
+  <!-- 头部用户的信息，包括头像，昵称，关注等，还未完成 -->
   <div class="item">
     <div class="top">
       <img class="avator" src="https://i.imgtg.com/2023/03/25/jBzWp.webp" alt="" />
