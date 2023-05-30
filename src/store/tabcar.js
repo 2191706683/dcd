@@ -14,7 +14,7 @@ export const useTabCarStore = defineStore('newcar', () => {
         carindex: []
     })
     
-    // 获取newcar，energy数据 
+    // /获取newcar，energy数据 
     const loadTabCar = async () => {
         const { data } = await getTabCar()
         state.newcar_caricon = data.newcar.caricon
