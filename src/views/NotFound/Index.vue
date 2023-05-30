@@ -1,12 +1,13 @@
 <template>
-    <div class="notfound">
-      <h1>404</h1>
-      <h3>该页面不存在</h3>
-      <router-link to="/">回到首页</router-link> 
-    </div>
+  <div class="notfound">
+    <h1>404</h1>
+    <h3>该页面不存在</h3>
+    <router-link to="/">回到首页</router-link>
+  </div>
 </template>
 
 <script setup>
+//
 import { useRouter } from "vue-router";
 const router = useRouter();
 function goHome() {
