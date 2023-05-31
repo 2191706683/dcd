@@ -1,5 +1,4 @@
 <template>
-  <!--  -->
   <div class="car_hot">
     <div class="car_hotcar_title">热门车系</div>
     <div class="car_hotcar">
