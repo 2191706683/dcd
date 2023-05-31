@@ -6,7 +6,7 @@ import { UserModel } from './user.model';
  */
 export const getUser = (condition: string) => {
     // user.name  user.id user.name
-    // sql模板 ？ WHERE 分支
+    // sql模板 ？ WHERE 分支/
     return async (param: string | number) => {
 
         const statement = `
