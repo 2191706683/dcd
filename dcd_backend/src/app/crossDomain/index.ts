@@ -16,7 +16,7 @@ export default async (ctx: any, next: any) => {
     // ctx.set('Access-Control-Max-Age', 3000);
     // 需要获取其他字段的时候设计的
     // ctx.set('Access-Control-Expose-Headers', 'myData');
-
+    // 
     // 解决 OPTIONS 请求
     if (ctx.method === 'OPTIONS') {
         ctx.body = '';
