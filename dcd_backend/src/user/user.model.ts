@@ -1,4 +1,4 @@
-// interface  type 类
+// interface  type 类/
 export class UserModel {
     id?: number;
     name?: string;
