@@ -15,6 +15,6 @@ export const signToken = (options: SignTokenOptions) => {
     // 签发 JWT
     const token = jwt.sign(payload, PRIVATE_KEY, { algorithm: 'RS256' });
 
-    // 提供 JWT
+    // /提供 JWT
     return token;
 };
