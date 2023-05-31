@@ -8,7 +8,7 @@ import {
 } from './user.middleware';
 
 /**
- * restful
+ * restful/
  * users post 新增
  */
 routers.post('/users/register', validateUserData, defaultErrorHandler, hashPassword , userController.store);
