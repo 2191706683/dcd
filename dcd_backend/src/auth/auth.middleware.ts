@@ -34,7 +34,7 @@ export const currentUser = (
 }
 
 /**
- * 验证用户身份
+ * /验证用户身份
  */
 export const authGuard = (
   ctx: any,
