@@ -3,6 +3,9 @@ import * as userService from './user.service'
 import { signToken } from '../auth/auth.service';
 import bcrypt from 'bcryptjs';
 
+/**
+ * 注册功能，把用户信息存入数据库
+ */
 export const store = (
     ctx: any,
     next: any
@@ -24,6 +27,9 @@ export const store = (
     next();
 }
 
+/**
+ * 返回登录信息和token
+ */
 export const show = async (
     ctx: any,
     next: any
@@ -55,6 +61,9 @@ export const show = async (
     next();
 }
 
+/**
+ * 获取用户界面数据
+ */
 export const userGrid = async (
     ctx: any,
     next: any
