@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import * as userService from './user.service';
 
 /**
- * 把用户注册的密码转成HASH密码
+ * /把用户注册的密码转成HASH密码
  */
 export const hashPassword = async (
     ctx: any,
