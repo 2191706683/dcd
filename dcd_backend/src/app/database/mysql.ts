@@ -8,7 +8,7 @@ import {
 } from '../../app/app.config';
 
 /**
- * 创建数据服务连接
+ * /创建数据服务连接
  */
 export const connection = mysql.createConnection({
   host: MYSQL_HOST,
