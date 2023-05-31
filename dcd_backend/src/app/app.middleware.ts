@@ -1,5 +1,5 @@
 /**
- * 
+ * 错误验证
  */
 export const defaultErrorHandler = (
     ctx: any,
