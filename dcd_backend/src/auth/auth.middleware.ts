@@ -24,6 +24,7 @@ export const currentUser = (
       user = decoded as TokenPayload;
       // 上下文对象
       ctx.user = user;
+      console.log(ctx.user, '????token')
     }
 
   } catch (error) {

@@ -2,7 +2,7 @@ import { ALLOW_ORIGIN } from '../app.config';
 
 export default async (ctx: any, next: any) => {
     // 允许来自所有域名请求（不携带 Cookie，如果要携带 Cookie 的话，要制定域名）
-    ctx.set('Access-Control-Allow-Origin', ALLOW_ORIGIN);
+    ctx.set('Access-Control-Allow-Origin', '*');
     // 设置所允许的 HTTP请求方法
     ctx.set('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
     // 表明服务器支持的所有头信息字段   服务器收到请求以后，请求 Origin，Access-Control-Request-Method 和 Access-Control-Request-Headers 字段以后，确认允许跨域请求，做出回应

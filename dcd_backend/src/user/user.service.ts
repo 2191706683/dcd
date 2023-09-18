@@ -13,7 +13,8 @@ export const getUser = (condition: string) => {
             SELECT
                 user.id,
                 user.name,
-                user.password
+                user.password,
+                user.isGM
             FROM
                 user
             WHERE
@@ -58,3 +59,89 @@ export const getUserGrid = async () => {
 export const getUserByName = getUser('user.name')
 
 export const getUserById = getUser('user.id')
+
+
+
+export const getDetail = async () => {
+    const statement = `
+        SELECT * FROM details;
+    `;
+    const [data] = await connection.promise().query(statement);
+
+    return data;
+}
+export const getDetailHeader = async () => {
+    const statement = `
+        SELECT
+            details.name,
+            details.img
+        FROM details;
+    `;
+    const [data] = await connection.promise().query(statement);
+
+    return data;
+}
+
+export const insertDetail = async (detail) => {
+    const statement = `
+        INSERT INTO details
+        SET ?
+    `;
+
+    const [data] = await connection.promise().query(statement, detail);
+    return data;
+}
+
+export const deleteDetail = async (id) => {
+    const statement = `
+        DELETE FROM details WHERE id = ${id}
+    `;
+
+    const [data] = await connection.promise().query(statement, id);
+    return data;
+}
+export const putDetail = async (detail) => {
+    const statement = `
+        UPDATE details
+        SET description = '${detail.description}', title = '${detail.title}', price = '${detail.price}', guide_price = '${detail.guide_price}'
+        WHERE id = ${detail.id}
+    `;
+
+    const [data] = await connection.promise().query(statement, detail);
+    return data;
+}
+
+export const getAllUser = async () => {
+    const statement = `
+        SELECT
+            *
+        FROM
+            user
+    `;
+    const [data] = await connection.promise().query(statement);
+    return data
+}
+
+export const deleteUser = async (id) => {
+    const statement = `
+        DELETE FROM user WHERE id = ${id}
+    `;
+
+    const [data] = await connection.promise().query(statement, id);
+    return data;
+}
+
+export const insertForm = async (order) => {
+    const statement = `
+        INSERT INTO order_form
+        SET ?
+    `;
+
+    const [data] = await connection.promise().query(statement, order);
+    return data;
+}
+
+
+
+
+

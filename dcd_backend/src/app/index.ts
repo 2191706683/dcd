@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser');
 const session = require('koa-session-minimal');
 const userRouter = require('../user/user.router') ;
 const authRouter = require('../auth/auth.router') ;
+const teaRouter = require('../tea/tea.router') ;
 const json = require('koa-json');
 
 
@@ -51,11 +52,12 @@ app.use(bodyParser({
 /**
  * 当前用户
  */
-app.use(currentUser);
+// app.use(currentUser);
 
 
-app.use(userRouter.routes());
-app.use(authRouter.routes());
+// app.use(userRouter.routes());
+// app.use(authRouter.routes() );
+app.use(teaRouter.routes());
 
 /**
  * 错误处理

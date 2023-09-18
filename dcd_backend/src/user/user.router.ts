@@ -15,6 +15,13 @@ routers.post('/users/register', validateUserData, defaultErrorHandler, hashPassw
 // routers.get('/users/:userId', userController.show);
 routers.post('/users/login', userController.show);
 routers.get('/user', userController.userGrid);
+routers.get('/detail', userController.getDetail);
+routers.post('/detail/put', userController.putDetail);
+routers.post('/detail/delete', userController.deleteDetail);
+routers.post('/detail/add', userController.addDetail);
+routers.get('/yonghu', userController.getUser);
+routers.post('/yonghu/delete', userController.deleteUser);
+routers.post('/form/add', userController.addForm);
 
 /**
  * 导出路由
