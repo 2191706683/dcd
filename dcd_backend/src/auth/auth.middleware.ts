@@ -16,6 +16,7 @@ export const currentUser = (
   try {
     // 提取 Authorization
     const authorization = ctx.request.headers.authorization;
+    // console.log(authorization, '/???')
     // 安全性前缀 提取令牌环
     if (authorization) {
       const decoded = jwt.verify(authorization, PUBLIC_KEY, {
@@ -24,7 +25,7 @@ export const currentUser = (
       user = decoded as TokenPayload;
       // 上下文对象
       ctx.user = user;
-      console.log(ctx.user, '????token')
+      // console.log(ctx.user, '????token')
     }
 
   } catch (error) {

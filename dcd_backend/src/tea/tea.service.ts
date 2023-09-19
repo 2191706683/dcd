@@ -105,12 +105,36 @@ export const getProductDetail = async (product_id) => {
     return data[0];
 }
 
+export const insertSaleForm = async (order) => {
+    const statement = `
+        INSERT INTO product_sale_form
+        SET ?
+    `;
+
+    const [data] = await connection.promise().query(statement, order);
+    return data;
+}
+
 export const getProductDetailComments = async (product_id) => {
     const statement = `
         SELECT
             *
         FROM
             product_detail_comments 
+        where 
+            product_id = ?
+    `;
+    const [data] = await connection.promise().query(statement, product_id);
+
+    return data;
+}
+
+export const getProductDetailSwipeImg = async (product_id) => {
+    const statement = `
+        SELECT
+            *
+        FROM
+            product_detail_swipeimg
         where 
             product_id = ?
     `;
@@ -244,57 +268,58 @@ export const evaluate2 = async () => {
 }
 
 /**
+ * 获取用户ID
+ */
+export const getUser = (condition: string) => {
+    // user.name  user.id user.name
+    // sql模板 ？ WHERE 分支/
+    return async (param: string | number) => {
+
+        const statement = `
+            SELECT
+                user_info1.id,
+                user_info1.name,
+                user_info1.password,
+                user_info1.avatar,
+                user_info1.nickname,
+                user_info1.introduction,
+                user_info1.address
+            FROM
+                user_info1
+            WHERE
+                ${condition} = ?
+        `;
+        const [data] = await connection.promise().query(statement, param);
+        return data[0]?.id ? data[0] : null;
+    }
+}
+
+/**
  * 按用户名获取
  */
-// export const getUserByName = getUser('user.name')
+export const getUserByName = getUser('user_info1.name')
 
-// export const getUserById = getUser('user.id')
+export const getUserById = getUser('user_info1.id')
 
 
-
-export const getDetail = async () => {
+/**
+ * 创建用户
+ */
+export const createUser = async (user) => {
     const statement = `
-        SELECT * FROM details;
-    `;
-    const [data] = await connection.promise().query(statement);
-
-    return data;
-}
-export const getDetailHeader = async () => {
-    const statement = `
-        SELECT
-            details.name,
-            details.img
-        FROM details;
-    `;
-    const [data] = await connection.promise().query(statement);
-
-    return data;
-}
-
-export const insertDetail = async (detail) => {
-    const statement = `
-        INSERT INTO details
+        INSERT INTO user_info1
         SET ?
     `;
 
-    const [data] = await connection.promise().query(statement, detail);
+    const [data] = await connection.promise().query(statement, user);
+
     return data;
 }
 
-export const deleteDetail = async (id) => {
+export const putUserInfo = async (detail) => {
     const statement = `
-        DELETE FROM details WHERE id = ${id}
-    `;
-
-    const [data] = await connection.promise().query(statement, id);
-    return data;
-}
-
-export const putDetail = async (detail) => {
-    const statement = `
-        UPDATE details
-        SET description = '${detail.description}', title = '${detail.title}', price = '${detail.price}', guide_price = '${detail.guide_price}'
+        UPDATE user_info1
+            SET introduction = '${detail.introduction}', address = '${detail.address}'
         WHERE id = ${detail.id}
     `;
 
@@ -302,24 +327,63 @@ export const putDetail = async (detail) => {
     return data;
 }
 
-export const getAllUser = async () => {
-    const statement = `
-        SELECT
-            *
-        FROM
-            user
-    `;
-    const [data] = await connection.promise().query(statement);
-    return data
-}
+// export const getDetail = async () => {
+//     const statement = `
+//         SELECT * FROM details;
+//     `;
+//     const [data] = await connection.promise().query(statement);
 
-export const deleteUser = async (id) => {
-    const statement = `
-        DELETE FROM user WHERE id = ${id}
-    `;
+//     return data;
+// }
+// export const getDetailHeader = async () => {
+//     const statement = `
+//         SELECT
+//             details.name,
+//             details.img
+//         FROM details;
+//     `;
+//     const [data] = await connection.promise().query(statement);
 
-    const [data] = await connection.promise().query(statement, id);
-    return data;
-}
+//     return data;
+// }
+
+// export const insertDetail = async (detail) => {
+//     const statement = `
+//         INSERT INTO details
+//         SET ?
+//     `;
+
+//     const [data] = await connection.promise().query(statement, detail);
+//     return data;
+// }
+
+// export const deleteDetail = async (id) => {
+//     const statement = `
+//         DELETE FROM details WHERE id = ${id}
+//     `;
+
+//     const [data] = await connection.promise().query(statement, id);
+//     return data;
+// }
+
+// export const getAllUser = async () => {
+//     const statement = `
+//         SELECT
+//             *
+//         FROM
+//             user
+//     `;
+//     const [data] = await connection.promise().query(statement);
+//     return data
+// }
+
+// export const deleteUser = async (id) => {
+//     const statement = `
+//         DELETE FROM user WHERE id = ${id}
+//     `;
+
+//     const [data] = await connection.promise().query(statement, id);
+//     return data;
+// }
 
 

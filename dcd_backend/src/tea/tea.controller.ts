@@ -1,7 +1,20 @@
 import { Context, Next } from 'koa'
 import * as teaService from './tea.service'
-// import { signToken } from '../auth/auth.service';
-// import bcrypt from 'bcryptjs';
+import { signToken } from '../auth/auth.service';
+import bcrypt from 'bcryptjs';
+
+function generateRandomNickname(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let nickname = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        nickname += characters.charAt(randomIndex);
+    }
+
+    return nickname;
+}
+
 export const getArticleList = async (
     ctx: any,
     next: any
@@ -90,11 +103,29 @@ export const getProductDetail = async (
     const { id } = ctx.request.body;
     const productionIcon: any = await teaService.getProductDetail(id);
     const res1 = await teaService.getProductDetailComments(id);
+    const res2 = await teaService.getProductDetailSwipeImg(id);
     productionIcon.comments = res1
+    productionIcon.swipeimg = res2
 
     ctx.body = {
         statusCode: 200,
         data: productionIcon
+    }
+    next();
+};
+
+export const insertSaleForm = async (
+    ctx: any,
+    next: any
+) => {
+    const { unit, quotation, quantity, contacts, mobile, type} = ctx.request.body;
+    console.log(unit, quotation, quantity, contacts, mobile, type, 'ijsoidjf')
+    const productionIcon: any = await teaService.insertSaleForm({unit, quotation, quantity, contacts, mobile, type});
+
+    ctx.body = {
+        statusCode: 200,
+        // data: productionIcon
+        message: "提交成功"
     }
     next();
 };
@@ -165,8 +196,9 @@ export const addCircleComments = async (
     try {
         const { circle_content, circle_id } = ctx.request.body;
         // console.log(circle_content, circle_id, 234)
-        let avatar = "https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-        let nickname = "人在草上"
+        console.log(ctx.user, '093u')
+        let avatar = ctx.user.avatar;
+        let nickname = ctx.user.nickname;
         let likes = 0
         let isLike = false
         const data = await teaService.insertCircleComments({ circle_id, avatar, nickname, circle_content, likes, isLike });
@@ -188,9 +220,10 @@ export const addCircleReplys = async (
     try {
         let { circle_content, comment_id, replayName } = ctx.request.body;
         circle_content = '@' + replayName + ' ' + circle_content
-        console.log(circle_content, comment_id, 234)
-        let avatar = "https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-        let nickname = "人在草上"
+        // console.log(circle_content, comment_id, 234)
+        // console.log(ctx.user, '093u')
+        let avatar = ctx.user.avatar;
+        let nickname = ctx.user.nickname;
         let likes = 0
         let isLike = false
         const data = await teaService.insertCircleReplys({ comment_id, avatar, nickname, circle_content, likes, isLike });
@@ -245,6 +278,103 @@ export const evaluate1 = async (
     next();
 };
 
+
+/**
+ * 注册功能，把用户信息存入数据库
+ */
+export const store = (
+    ctx: any,
+    next: any
+) => {
+    // 请求体中解出用户名 密码
+    const { name, password } = ctx.request.body;
+    // sql 数据库和node 服务器 一定是分离
+    console.log(name, password, '////');
+    let avatar = "https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+    // 生成一个包含 8 个字符的随机昵称
+    let nickname = generateRandomNickname(8);
+    try {
+        const data = teaService.createUser({ avatar, nickname, name, password });
+        // const data = await userService.createUser({name, password});
+        ctx.body = {
+            statusCode: 200,
+            message: '注册成功'
+        };
+    } catch (error) {
+        return next(ctx.error = error);
+    }
+    next();
+}
+
+/**
+ * 返回登录信息和token
+ */
+export const show = async (
+    ctx: any,
+    next: any
+) => {
+    const { name, password } = ctx.request.body;
+    try {
+        const user:any = await teaService.getUserByName(name);
+        // 经验
+        if (!user) {
+            return next(ctx.error = 'USER_NOT_FOUND');
+        }
+        let isValid = await bcrypt.compareSync(password, user.password);
+        console.log(isValid, '密码正确')
+        if (isValid) {
+            // 签发令牌
+            const payload = user;
+            const token = signToken({ payload });
+            ctx.body = {
+                statusCode: 200,
+                data: {
+                    token,
+                    userInfo: {
+                        avatar: user.avatar,
+                        nickname: user.nickname,
+                        introduction: user.introduction,
+                        address: user.address,
+
+                    }
+                },
+                message: '密码正确'
+            }
+        } else {
+            return next(ctx.error = 'PASSWORD_DOES_NOT_MATCH')
+        }
+    } catch (error) {
+        return next(ctx.error = error);
+    }
+    next();
+}
+
+export const putUserInfo = async (
+    ctx: any,
+    next: any
+) => {
+    // console.log(ctx.user, '908098')
+    let id = ctx.user.id;
+    const { introduction, address } = ctx.request.body;
+    console.log(introduction, address, id)
+    const data = await teaService.putUserInfo({ id, introduction, address });
+    const user:any = await teaService.getUserById(id);
+    // console.log(user, 'user')
+    ctx.body = {
+        statusCode: 200,
+        data: {
+            userInfo: {
+                avatar: user.avatar,
+                nickname: user.nickname,
+                introduction: user.introduction,
+                address: user.address,
+            }
+        },
+        message: '修改成功'
+    }
+    next();
+}
+
 // export const addDetail = async (
 //     ctx: any,
 //     next: any
@@ -273,18 +403,7 @@ export const evaluate1 = async (
 //     }
 //     next();
 // }
-// export const putDetail = async (
-//     ctx: any,
-//     next: any
-// ) => {
-//     const { id, description, title, price, guide_price } = ctx.request.body;
-//     const data = await userService.putDetail({ id, description, title, price, guide_price });
-//     ctx.body = {
-//         statusCode: 200,
-//         message: '修改成功'
-//     }
-//     next();
-// }
+
 
 // export const getUser = async (
 //     ctx: any,

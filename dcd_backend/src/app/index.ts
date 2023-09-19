@@ -52,11 +52,11 @@ app.use(bodyParser({
 /**
  * 当前用户
  */
-// app.use(currentUser);
+app.use(currentUser);
 
 
 // app.use(userRouter.routes());
-// app.use(authRouter.routes() );
+app.use(authRouter.routes());
 app.use(teaRouter.routes());
 
 /**
